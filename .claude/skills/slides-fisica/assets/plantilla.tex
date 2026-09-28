@@ -1,0 +1,237 @@
+% =====================================================================
+%  PLANTILLA — Slides académicas de física (estilo de S. Gaviria Giraldo)
+%  Derivada de baseline/slides.tex. Copiar este archivo como punto de
+%  partida y reemplazar el contenido de los frames de ejemplo.
+%  Compilar:  tectonic slides.tex   (o bien  pdflatex slides.tex)
+% =====================================================================
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+\fi
+\usepackage[spanish,es-nodecimaldot,es-noshorthands]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\graphicspath{{figures/}}
+
+% ---------------------------------------------------------------------
+%  Estilo sobrio
+% ---------------------------------------------------------------------
+\definecolor{azul}{RGB}{20,83,56}         % color principal (verde)
+\definecolor{azulclaro}{RGB}{228,241,233} % verde claro
+\definecolor{gris}{RGB}{90,90,90}
+\definecolor{acento}{RGB}{176,58,46}
+
+\usefonttheme{professionalfonts}
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{structure}{fg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azul}
+\setbeamercolor{framesubtitle}{fg=azul,bg=azulclaro}
+\setbeamercolor{framenumber}{fg=azulclaro,bg=azul}
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{block title}{fg=white,bg=azul}
+\setbeamercolor{block body}{fg=black,bg=azulclaro}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{itemize items}{\small$\blacktriangleright$}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\small,series=\mdseries,shape=\itshape}
+\setbeamerfont{framenumber}{size=\footnotesize,series=\bfseries}
+\setbeamerfont{caption}{size=\scriptsize}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+
+% Título de cada slide en barra redondeada (con número de slide);
+% subtítulo en caja clara con filete lateral.
+\makeatletter
+\setbeamertemplate{frametitle}{%
+  \vspace*{0.5em}%
+  \begin{beamercolorbox}[wd=\textwidth,sep=0.45em,leftskip=0.3em,rightskip=0.3em,rounded=true,shadow=false]{frametitle}%
+    \usebeamerfont{frametitle}\strut\insertframetitle\hfill
+    {\usebeamerfont{framenumber}\usebeamercolor[fg]{framenumber}\insertframenumber\,/\,\inserttotalframenumber}%
+  \end{beamercolorbox}%
+  \ifx\insertframesubtitle\@empty\else
+    \par\vspace{0.3em}%
+    \hbox{%
+      {\color{acento}\vrule width 2.5pt}%
+      \begin{beamercolorbox}[wd=\dimexpr\textwidth-2.5pt\relax,sep=0.3em,leftskip=0.3em]{framesubtitle}%
+        \usebeamerfont{framesubtitle}\mdseries\strut\insertframesubtitle
+      \end{beamercolorbox}}%
+  \fi
+  \vspace{0.2em}%
+}
+\makeatother
+
+% Sin pie de página
+\setbeamertemplate{footline}{}
+
+\newcommand{\kB}{k_{B}}
+\newcommand{\fig}[1]{{\scriptsize\color{gris}#1}}
+
+% Estilos TikZ reutilizables (cabecera verde + caja clara + flecha roja)
+\tikzset{
+  cab/.style={fill=azul,text=white,rounded corners=3pt,font=\small\bfseries,
+              text width=3.8cm,align=center,inner sep=3pt,minimum height=0.6cm},
+  caja/.style={draw=azul,fill=azulclaro,rounded corners=3pt,font=\footnotesize,
+               text width=3.8cm,align=flush left,inner sep=5pt,anchor=north},
+  paso/.style={-{Stealth},very thick,acento},
+  etapa/.style={draw=azul,fill=azulclaro,rounded corners=3pt,font=\footnotesize,
+                align=center,inner sep=4pt},   % caja de un paso en cadenas/algoritmos
+}
+
+% ---------------------------------------------------------------------
+\title{Título del trabajo}
+\author{Autor}
+% =====================================================================
+
+\begin{document}
+
+% ---------------------------------------------------------------- portada
+\begin{frame}[plain]
+  \vfill
+  \begin{beamercolorbox}[wd=\textwidth,sep=1em,center,rounded=true,shadow=false]{title}
+    {\Large\bfseries Título principal del trabajo:\\[0.3em]
+     segunda línea del título\par}
+    \vspace{0.5em}
+    {\color{white!60!azul}\rule{0.45\linewidth}{0.4pt}\par}
+    \vspace{0.35em}
+    {\normalsize\itshape Nombre del evento -- Ciudad, año\par}
+  \end{beamercolorbox}
+  \vspace{1.2em}
+  \centering
+  {\large Autor~Uno,\; Autor~Dos\par}
+  \vspace{0.5em}
+  {\small\color{gris}Instituto / Departamento\\ Universidad, Ciudad, País\par}
+  \vspace{0.7em}
+  \makebox[\textwidth][c]{\begin{minipage}{0.62\textwidth}
+  \begin{beamercolorbox}[wd=\textwidth,sep=0.45em,center,rounded=true]{framesubtitle}
+    \small Dato de contexto (revista, tesis, proyecto)\\
+    \footnotesize línea secundaria (doi, repositorio, financiación)
+  \end{beamercolorbox}
+  \end{minipage}}\par
+  \vfill
+\end{frame}
+
+% ---------------------------------------------------------------- definición + figura/tabla + dos bloques
+\begin{frame}{¿Qué es el concepto X?}
+  \framesubtitle{\textbf{Definición:} una frase precisa que el público pueda leer en 5 segundos.}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[x=0.82cm,y=0.62cm,>=stealth]
+        \draw[thick,azul] plot[smooth,tension=0.7] coordinates
+          {(0,2.1) (0.8,0.45) (1.6,1.75) (2.6,0.8) (3.5,1.95) (4.4,0.3) (5.3,1.9)};
+        \fill[acento] (0.8,0.62) circle (0.11);
+        \draw[->,thick,acento] (0.95,0.75) .. controls (1.2,2.6) and (2.2,2.4) .. (2.45,1.0);
+        \node[font=\scriptsize] at (2.9,-0.55) {coordenada};
+      \end{tikzpicture}\\[0.1em]
+      {\small $r = \nu_0 \exp\!\left(-\dfrac{E}{\kB T}\right)$}
+    \end{column}
+    \begin{column}{0.55\textwidth}
+      \centering\footnotesize
+      \renewcommand{\arraystretch}{1.15}
+      \begin{tabular}{@{}lll@{}}
+        \toprule
+        Método & Escala & Qué entrega \\
+        \midrule
+        A & fs & algo \\
+        \textbf{B} & \textbf{s} & \textbf{lo nuestro} \\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+  \end{columns}
+  \vspace{0.5em}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.485\textwidth}
+      \begin{block}{Idea 1}
+        \footnotesize Frase corta $\Rightarrow$ \emph{consecuencia}.
+      \end{block}
+    \end{column}
+    \begin{column}{0.485\textwidth}
+      \begin{block}{Idea 2}
+        \footnotesize Frase corta $\Rightarrow$ \emph{consecuencia}.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- ecuaciones + figura
+\begin{frame}{Ecuaciones con figura}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.5\textwidth}
+      \begin{align}
+        \Delta\mu &= \kB T \ln(\sigma + 1) \tag{1}\\[0.3em]
+        \Delta G  &= -N\Delta\mu + \gamma A \tag{2}
+      \end{align}
+      \begin{block}{}
+        \begin{equation}
+          r = K_0\exp\!\left(-\frac{\Delta G}{\kB T}\right) \tag{3}
+        \end{equation}
+      \end{block}
+      {\footnotesize $\gamma$: energía de borde; \ $A$: área nueva}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \centering
+      \fbox{\parbox[c][3.2cm][c]{0.9\linewidth}{\centering\color{gris}figura}}\\
+      \fig{Fig.~1. Descripción breve de la figura.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- flujo de cajas TikZ
+\begin{frame}{Motivación y problema}
+  \framesubtitle{Mensaje central de la slide en una línea.}
+  \centering
+  \begin{tikzpicture}
+    \node[cab] (h1) at (0,0) {Motivación};
+    \node[caja,minimum height=2.4cm] (b1) at ([yshift=-2pt]h1.south) {\textbf{Punto} clave\\[0.4em] otro punto};
+    \node[cab] (h2) at (4.9,0) {Causa};
+    \node[caja,minimum height=2.4cm] (b2) at ([yshift=-2pt]h2.south) {\textbf{Punto} clave};
+    \node[cab] (h3) at (9.8,0) {Problema};
+    \node[caja,minimum height=2.4cm] (b3) at ([yshift=-2pt]h3.south) {\textbf{Punto} clave};
+    \draw[paso] (b1.east) -- (b2.west);
+    \draw[paso] (b2.east) -- (b3.west);
+    \node[fill=azul,text=white,rounded corners=3pt,font=\small,text width=13.3cm,
+          align=center,inner sep=5pt,anchor=north] (prop) at ([yshift=-0.45cm]b2.south)
+          {\textbf{Propuesta:} una línea con la idea del trabajo};
+    \draw[paso] (b3.south) -- (b3.south |- prop.north);
+  \end{tikzpicture}
+\end{frame}
+
+% ---------------------------------------------------------------- conclusiones
+\begin{frame}{Conclusiones}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.56\textwidth}
+      \begin{itemize}\setlength{\itemsep}{0.7em}
+        \item Resultado con \textbf{palabra clave}
+        \item Resultado cuantitativo: $R^2 = 0.96$
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \begin{block}{Limitaciones}
+        \small Frase corta
+      \end{block}
+      \vspace{0.4em}
+      \begin{block}{Perspectivas}
+        \small Frase corta
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- cierre
+\begin{frame}{¡Gracias por su atención!}
+  \vfill
+  \begin{block}{}
+    \centering
+    \Large ¿Preguntas?
+  \end{block}
+  \vfill
+\end{frame}
+
+\end{document}

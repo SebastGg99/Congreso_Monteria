@@ -1,0 +1,354 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=1cm,right=1cm]{geometry}
+
+
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{graphicx} 
+\usepackage{multirow}
+\usepackage{comment}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{afterpage}
+\usepackage{braket}
+\usepackage{bm}  % bold math
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage{booktabs} 
+\usepackage{comment}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{dsfont}
+
+\newcommand*\gabor[1]{\texttt{{\color{blue}Gabor: #1}}}
+\newcommand*\gctodo[1]{\todo[color=blue!40]{Gabor: #1}}
+\newcommand*\david[1]{\texttt{{\color{red}David: #1}}}
+\newcommand*\ilyes[1]{\texttt{{\color{purple}Ilyes: #1}}}
+\newcommand*\gncs[1]{\texttt{{\color{cyan}GS: #1}}}
+\newcommand*\gncstodo[1]{\todo[color=green!40]{GS: #1}}
+\newcommand*\cco[1]{\texttt{{\color{orange}[CO: #1]}}}
+\newcommand*\co[1]{{\color{orange} #1}}
+\newcommand*\com[1]{{\color{olive} #1}}
+
+\title{Rebuttal}
+
+\begin{document}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{General}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We thank all reviewers for their time and effort in reviewing our paper.
+We are glad you think that the manuscript 
+``does an excellent job in presenting the method in a concise, precise and comprehensible way'' (R3),
+and find that our ``method achieves state-of-the-art performance on several benchmarks'' (R2) and  ``is very fast thanks to the tensor formulation of higher order messages'' (R1).
+
+In summary, we have updated our manuscript with the following changes:
+\begin{itemize}
+\item we made the novel concepts introduced in this paper more accessible by expanding on explanations, improving the notation, and adding references,
+\item we now compare our model with GemNet on the rMD17 dataset,
+\item we added a detailed description of all datasets used in this work;
+\end{itemize}
+Finally, we have published our code on GitHub for complete reproducibility.
+Below we respond to the reviewers' comments individually.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Reviewer 1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Thank you for reviewing our paper. 
+We appreciate that you find our work technically solid and of high impact.
+Below we respond to your suggestions to further improve the paper.
+
+\subsection*{Completeness of the B-Basis} 
+
+% In section 4, the paper claims that the higher order features $B_{i,\eta,k,L,M}$ can be interpreted as a complete basis. Is there a reference / proof for this? The paper does not mention any.
+
+\begin{quote}
+In section 4, the paper claims that the higher order features $B_{i,\eta k L M}$ can be interpreted as a complete basis. Is there a reference / proof for this? The paper does not mention any.
+\end{quote}
+
+A proof of the completeness of the $B_{i,\eta k L M}$ basis can be found in Ref.~[1].
+%For $L=0$, a proof of the completeness of the $B_{i,\eta k L M}$ basis can be found in Ref.~[1].
+% Analogous and straightforward arguments can extend the proof to any $L$.
+We added the reference to the manuscript and discussed the matter in the main text.
+
+\subsection*{How does MACE compare to GemNet?} 
+
+% Experiments don't compare against newer methods like Gemnet that also use higher order message passing.
+\begin{quote}
+Experiments don't compare against newer methods like Gemnet that also use higher order message passing.
+\end{quote}
+
+We now compare our model to GemNet on the rMD17 dataset and observe that MACE outperforms GemNet (see table below for mean absolute errors on force predictions in [eV/$\AA{}$]).
+We believe that this is partially due to the inclusion of \textbf{all} four-body terms, 
+of which GemNet includes only a subset.
+\begin{table*}
+  % \caption{
+  %   \textbf{Mean absolute errors on the rMD17 dataset}
+  % }
+  %
+  \centering
+  \label{tab:md17}
+  \resizebox{0.2\textwidth}{!}{
+    \begin{tabular}{@{}lcc@{}}
+      \toprule
+       &   MACE  & GemNet (T/Q)                                                                                                                                                                                                                                                                                       \\
+      \midrule
+      %
+      \multirow{1}{*}{\textbf{Aspirin}}
+        & \textbf{6.6}                                    & 9.5    \\
+      \midrule
+      \multirow{1}{*}{\textbf{Azobenzene}}
+       & 3.0                                               &   -  \\
+      \midrule
+      \multirow{1}{*}{\textbf{Benzene}}
+       & 0.3                                              &    0.5                  \\
+      \midrule
+      \multirow{1}{*}{\textbf{Ethanol}}
+       & \textbf{2.1}  & 3.6 \\
+      \midrule
+      \multirow{1}{*}{\textbf{Malonaldehyde}}
+       & 4.1                                                & 6.6                 \\
+      \midrule
+      \multirow{1}{*}{\textbf{Naphthalene}}
+       & 1.6                                          & 1.9                   \\
+      \midrule
+      \multirow{1}{*}{\textbf{Paracetamol}}
+       & \textbf{4.8}                                      & -                   \\
+      \midrule
+      \multirow{1}{*}{\textbf{Salicylic acid}}
+       & 3.1                                                 & 5.3                \\
+      \midrule
+      \multirow{1}{*}{\textbf{Toluene}}
+       & \textbf{1.5}                                     & 2.2                 \\
+      \midrule
+      \multirow{1}{*}{\textbf{Uracil}}
+       & 2.1                                              & 3.8                    \\
+      \bottomrule
+    \end{tabular}
+  }
+\end{table*}
+
+\subsection*{Scaling and Computational Cost of the Tensor Product} 
+
+% How does the cost of tensor product scale with number of nodes? In other words, can the method be applied for larger systems like materials or proteins?
+
+\begin{quote}
+How does the cost of tensor product scale with number of nodes? In other words, can the method be applied for larger systems like materials or proteins?
+\end{quote}
+
+The cost of the tensor product scales linearly with the number of nodes, i.e., atoms.
+MACE reduces the pre-factor of the scaling compared to other methods by carrying out the most costly operations on nodes rather than edges. (For local methods, the number of edges scales linearly with the number of nodes).
+As a result, we could apply MACE to systems with over 20,000 atoms on a single NVIDIA A100 GPU.
+
+\subsection*{Applying MACE to Larger Datasets} 
+
+\begin{quote}
+The experiments in the paper are based on small datasets. Do the authors have a sense for how MACE would perform on a much larger dataset like OC20 (opencatalyst.org)?
+\end{quote}
+
+We are currently experimenting on a wide range of datasets containing large molecules and materials (e.g., OC20) and consistently observe good performance for MACE.
+In future work, we intend to discuss MACE's performance on these systems in detail.
+
+\par\medskip
+
+[1] Genevieve Dusson, Markus Bachmayr, Gabor Csanyi, Ralf Drautz, Simon Etter, Cas van der Oord, and Christoph Ortner. Atomic cluster expansion: Completeness, efficiency and stability. Journal of Computational Physics, page 110946, 2022.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Reviewer 2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Thank you for reviewing our paper.
+We appreciate your detailed questions and suggestions to which we respond below.
+
+\subsection*{Connection between Product Basis and Body Ordering} 
+
+\begin{quote}
+The connection between tensor product and the standard many-body expansion is unclear to me. The authors should provide clearer background and technical details while presenting this core module.
+\end{quote}
+
+A detailed discussion of the relationship between the product basis functions and the many-body expansion can be found in Refs.~[1] and [2], to which we now refer in the manuscript.
+The core idea is that each term of the body order expansion, which corresponds to a multivariate function, can be approximated up to any accuracy by a linear combination of product basis function. 
+
+\subsection*{Relationship between Multi-ACE and MACE}
+
+%The novelty of the proposed method is not well clarified. 
+\begin{quote}
+As mentioned in related works (lin99-109), both the theories and implementation strategies of the Multi-ACE framework have been put forward by previous works. There is no clear clarification of non-trivial modification in the proposed method, making it difficult to justify the technical contribution of the paper.
+\end{quote}
+%I encourage the authors to reorganize the methodology section to make it more readable and highlight their technical contributions.
+Multi-ACE is a general framework unifying previously proposed methods. 
+In contrast, MACE proposes a \emph{concrete} and novel architecture and implementation with excellent accuracy and computational efficiency.
+To our knowledge, it is the first model to use many-body E3-equivariant messages,
+which we efficiently compute with a novel recursive algorithm.
+% Further, we are the first to show the efficiency of the low-rank tensor decomposition of the $B$ basis. 
+Finally, MACE is the first ML potential to decouple expressiveness from the number of layers. 
+We now make this clearer in the introduction.
+
+\subsection*{Description of rMD17 dataset} 
+%The description of evaluation benchmarks is unclear. For example, the meaning of rMD17 is not well explained.
+We have added a section in the supplementary describing the dataset in more detail.
+
+\subsection*{Receptive field}
+%The claim about receptive fields is misleading. In line 220 of section 5.2, the authors claim that "By decoupling the increase in correlation order of the messages from the number of message passing iterations, MACE only requires two layers resulting in a much smaller receptive field." There is no doubt that a small receptive field will make the model more parallelisable. However, the big receptive field also captures more global (long-range) interactions than the small receptive field, which usually leads to better empirical performance (see Figure 1 in this paper). It seems that the authors think the correlation order of body messages is more important than the size of the receptive field, so the negative impact of small receptive fields is ignored. But there is a lack of convincing discussion about this point. Correct me if I misunderstand something.
+
+\begin{quote}
+The authors should further clarify the potential negative impact of small receptive fields. If any, how do you deal with such impact?
+\end{quote}
+
+It is correct that a smaller receptive field restricts the interaction range learned by the model 
+and the influence of such restriction on the performance depends on the system.
+However, there is experimental evidence that current MPNNs do not capture long-range interactions beyond 8-10~\AA{} [4]. 
+We agree that further investigation is needed to give a definite answer.
+However, our results strongly suggest that the need for deep MPNNs comes from the increased correlation order and not from the enlarged receptive field.
+For instance, Figure 1 shows that MACE with only two layers outperforms NequIP with five layers.
+Finally, an appealing solution to model long-range interactions could be via direct Coulomb-like interactions to complement short-range models. 
+
+\subsection*{Choice of rMD17 over MD17}
+
+\begin{quote}
+For the evaluation benchmarks, what do you mean by the revised MD17 dataset?
+% Is there any difference between rMD17 and MD17 in other works?
+\end{quote}
+
+The original MD17 contained noisy data stemming from unconverged DFT calculations [3], and therefore, a portion of the original trajectories was recomputed with tighter convergence criteria for rMD17.
+Further, rMD17 contains 3 additional molecules.
+We now mention this in the dataset description.
+
+\subsection*{Choice of the 3BPA dataset}
+
+\begin{quote}
+Why do the authors choose the 3BPA dataset to analyze the effect of higher order messages and the computational efficiency of the method, instead of the larger scale MD17 dataset?
+\end{quote}
+
+We chose the 3BPA dataset over MD17 for two reasons:
+(1) 3BPA is small enough to carry out extensive experiments (with 3 seeds).
+(2) In 3BPA, the task is to train on configurations sampled at 300K and then test on configurations sampled at 600 and 1200~K, which makes results more robust to overfitting.
+By contrast, MD17 consists of configurations at a single temperature.
+
+\subsection*{Formal Complexity of MACE}
+\begin{quote}
+Can the authors provide a more formal mathematical description for the computation complexity for MACE and other baseline methods?
+\end{quote}
+%This would be more direct to exhibit the advantage of MACE.
+
+We can give rough estimates of MACE's computational complexity by considering the costliest operations,
+namely the tensor product over nodes and edges.
+Let $N$ be the number of atoms, 
+$\mathcal{N}_\text{neigh}$ the average number of neighbors,
+$T$ the number of layers,
+$\nu$ the correlation order at each layer, 
+$L_{\text{max}}$ the equivariant of the message, 
+$\mathcal{N}_\text{channel}$ the number of channels,
+and $l_{\text{max}}$ the equivariance of the edges features.
+Then, an estimate of the complexity is:
+\begin{itemize}
+\item \textbf{MACE}: $\left(\mathcal{N}_\text{neigh} \left(\left(l_{\text{max}}+1\right)^{4} + \left(l_{\text{max}}+1\right)^{4} (L_{\text{max}}+1)^{2}\right) + \left(l_{\text{max}}+1\right)^{2\nu} \left(\left(L_{\text{max}} + 1\right)^{2} + 1\right) \right) \mathcal{N}_\text{channel}* \mathcal{O}(N) $
+\item \textbf{NequIP}: $\left(\mathcal{N}_\text{neigh} \left(\left(l_{\text{max}}+1\right)^{4} + \left(l_{\text{max}}+1\right)^{2} \left(L_{\text{max}}+1\right)^{4}\right) (T-1) \right) \mathcal{N}_\text{channel}*\mathcal{O}(N)$
+\end{itemize}
+
+Compare MACE with $l_{\text{max}}=3$, $L_{\text{max}}=1$, and $\nu=3$,
+and NequIP with $l_{\text{max}}=3$, $L_{\text{max}}=3$, and $T=5$, both with a cutoff radius of 5~\AA{}.
+While the two models achieve similar accuracy,
+MACE is five times faster for small molecules ($\mathcal{N}_\text{neigh} = 17$),
+and 10 times faster for amorphous carbon ($\mathcal{N}_\text{neigh}$=80).
+
+\subsection*{Clarification in Eq. 3}
+\begin{quote}
+Is there any typo in Eqn. (3)? 
+\end{quote}
+% The authors introduce the new symbol h^{t+1} in line55 but don't interpret it in subsequent paragraphs.
+Thank you for pointing this out. 
+We improved the readability of Eq.~3. \newline
+
+
+[1] Genevieve Dusson, Markus Bachmayr, Gabor Csanyi, Ralf Drautz, Simon Etter, Cas van der Oord, and Christoph Ortner. Journal of Computational Physics, page 110946, 2022.
+\newline
+[2] Christensen, A. S.  von Lilienfeld, O. A. Machine Learning: Science and Technology 1, 045018, 2020. \newline
+[3] Ilyes Batatia, Simon Batzner, Dávid Péter Kovács, Albert Musaelian, Gregor N. C. Simm,
+Ralf Drautz, Christoph Ortner, Boris Kozinsky, and Gábor Csányi. 2022. https://arxiv.org/abs/2205.06643. \newline
+[4] Jigyasa Nigam, Sergey Pozdnyakov, Guillaume Fraux, and Michele Ceriotti. The Journal of Chemical Physics, doi: 10.1063/5.0087042.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Reviewer 3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Thank you very much for your positive review and excellent comments. 
+We appreciate that you find our work interesting and well-written.
+Below we respond to your questions and suggestions.
+
+\subsection*{Use of an MLP in the last layer}
+%All are linear layers, except for the last one, why? The last one is apparently a one layer MLP, is the only difference then an activation function? (otherwise a one-layer MLP == a linear layer)
+
+\begin{quote}
+    I do not see the point of the MLP in equation 13.
+\end{quote}
+
+The difference between the last \textit{readout} layer and the ones before is the \textit{non-linear} activation as opposed to a \textit{linear} one.
+We aim to decompose our models' output for each atom $i$ into the sum of two terms:
+$E_{i} = E_{i,\text{finite}} + E_{i,\text{res}}$, 
+where
+$E_{i,\text{finite}}$ is interpreted as a classical polynomial body order expansion truncated up to a finite order and $ E_{i,\text{res}}$ is a non-linear correction expressed as an infinite series.
+Since most non-linear activations have infinite Taylor expansions and, thus, do not possess a finite body-order expansion we can only use them in the last layer.
+Empirically this scheme also offers the best performance.
+
+
+\subsection*{Systems of Molecules}
+
+%What can there be said about which observations would hold in general, in which would be limited to single (and small?) molecule analysis, versus systems of molecules (maybe like OC20?) or large molecules like proteins?
+
+\begin{quote}
+    What can there be said about which observations would hold in general, in which would be limited to single (and small?) molecule analysis, versus systems of molecules (maybe like OC20?) or large molecules like proteins?
+\end{quote}
+
+In the past, performance on small flexible molecules at high temperatures has been a good indicator of accuracy across a large spectrum of systems [1].
+In particular, the challenging nature of the flexible 3BPA molecule makes it an excellent proxy for performance on large proteins.
+We are currently applying MACE to a wide range of systems of up to 20,000 atoms, including an extensive dataset of diverse molecules, and found that MACE is performing well. 
+
+
+\subsection*{Comparison to Dimenet}
+
+%Dimenet and other higher-order methods like simplicial neural networks maintain a representation of the “many bodies” (e.g. dimenet evolves edge features). Another difference is the encoding of higher order interactions via geometric invariants s.a. angles, whereas MACE relies on products of invariants and covariants. I have the feeling that this product structure (instead of e.g. summing over bodies) is important, but cannot quite put my finger on it. It is evident that the presented approach works well, but what precisely makes it successful? E.g. if Dimenet uses 3 body interactions, and this work does as well, MACE (mu=2) seems to be better, but why? Related to my puzzlement w.r.t. Dimenet comparison, if L=0 and mu=2, we get 3-body interactions through multiplication (?) of invariants like distances. Is there any interpretation to this?
+
+\begin{quote}
+Dimenet and other higher-order methods like simplicial neural networks maintain a representation of the “many bodies” (e.g. dimenet evolves edge features). [...] I have the feeling that this product structure (instead of e.g. summing over bodies) is important, but cannot quite put my finger on it.  Is there any interpretation to this?
+\end{quote}
+
+We want to thank you for introducing us to simplicial neural networks.
+As you pointed out, one central difference between MACE and DimeNet is the construction of many body representations.
+It is also true that MACE with $\nu=2$ and $L=0$ should be as expressive as DimeNet.
+However, there are numerous differences between the two models, including optimization schemes and normalization, which result in a significant difference in accuracy.
+We also want to stress that no higher-order models use a complete set of 4-body messages as MACE does.
+
+The way we interpret the success of MACE is twofold:
+\begin{itemize}
+\item Due to the product structure, one can construct any complete set of ($\nu + 1$)-body features at the cost of two-body ones.
+This alleviates the unfavorable scaling of summing over triplets and quadruplets, which prevents GemNet from creating a complete set of 4-body messages.
+\item The symmetric tensor decomposition of Eq.~10 over channels and the message passing step give an efficient re-ordering of the basis, leading to faster convergence to the complete basis limit.
+\end{itemize}
+
+\subsection*{Relation to Polynomical activation functions}
+
+%Equation 10 reminds me of polynomical activation functions, akin to consideration in Kondor [31] that such (higher order) tensor products are non-linearities in themselves (viewing them as activation functions). I am used to the idea of such equivariant polynomial activation functions (through works like [F21]), simply as necessary non-linearities for neural networks to work. But should I change my viewpoint and consider it more than just a non-linearity, but rather see it as a way to achieve higher-body interactions?
+
+\begin{quote}
+    Equation 10 reminds me of polynomical activation functions, akin to consideration in Kondor [31] that such (higher order) tensor products are non-linearities in themselves (viewing them as activation functions). I am used to the idea of such equivariant polynomial activation functions (through works like [F21]), simply as necessary non-linearities for neural networks to work. But should I change my viewpoint and consider it more than just a non-linearity, but rather see it as a way to achieve higher-body interactions?
+\end{quote}
+
+We think both are interesting perspectives of the same operation.
+Seeing the tensor product as a non-linear activation in the Fourier space (like in Kondor [31]) would correspond to a signal processing point of view.
+From a physicist's point of view, they achieve an approximation of a body order expansion.
+The latter interpretation can help with choosing the right hyperparameters for these activations.
+
+[1] Dávid Péter Kovács, Cas van der Oord, Jiri Kucera, Alice E. A. Allen, Daniel J. Cole, Christoph Ortner, and Gábor Csányi. Journal of Chemical Theory and Computation, 17(12):7696–7711, 2021.
+\end{document}

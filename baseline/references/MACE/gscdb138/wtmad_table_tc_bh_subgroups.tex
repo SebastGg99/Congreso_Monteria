@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.1}
+\caption{WTMAD-2 (kcal/mol) for thermochemistry and reaction-barrier subsets with only H, C, N, O, F, P, S, and Cl elements to support SO3LR and AIMNet2-NSE. Datasets for each subset are listed in SI Sec.~\ref{sec:tc_benchmarks}.}
+\label{tab:wtmad_tc_bh_subgroups}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l c c c | c c c c c c | c c c}
+\toprule
+Subset & $N_{\mathrm{sets}}$ & wB97M-V & g-xTB & \UMAS & \UMAM & \MOMOL & \ORBMOL & \MFPM & \MFPL & SO3LR & AIMNet2-NSE  & FENNIX-BIO-2 \\
+\midrule
+TC: Bond Energies + HAT & 7 & 1.57 & 5.30 & 3.16 & 2.18 & 4.68 & 5.63 & 2.75 & 3.80 & 26.46 & 9.27 & 14.18 \\
+TC: Reaction Energies & 6 & 0.94 & 3.61 & 1.06 & 1.14 & 1.77 & 1.31 & 1.51 & 1.47 & 18.66 & 3.37 & 6.76 \\
+TC: Thermochemistry & 9 & 1.22 & 5.31 & 2.22 & 2.47 & 3.27 & 2.94 & 2.39 & 2.34 & 27.22 & 4.87 & 11.15 \\
+BH: Barrier + Proton & 10 & 1.27 & 3.56 & 1.79 & 1.56 & 2.06 & 2.62 & 2.69 & 1.91 & 14.27 & 6.75 & 18.32 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}

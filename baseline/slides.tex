@@ -1,0 +1,692 @@
+% =====================================================================
+%  Journal Alert - Seminario de Posgrado en Física
+%  Nagpal, Sitapure, Gagnon & Kwon (2024)
+%  "Advancing crystal growth prediction: An adaptive kMC model
+%   spanning multiple regimes", Chem. Eng. Sci. 299, 120472
+%  Compilar:  pdflatex slides.tex   (o bien  tectonic slides.tex)
+% =====================================================================
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+\fi
+\usepackage[spanish,es-nodecimaldot,es-noshorthands]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tikz}
+\graphicspath{{figures/}}
+
+% ---------------------------------------------------------------------
+%  Estilo sobrio
+% ---------------------------------------------------------------------
+\definecolor{azul}{RGB}{20,83,56}    % color principal (verde)
+\definecolor{azulclaro}{RGB}{228,241,233} % verde claro
+\definecolor{gris}{RGB}{90,90,90}
+\definecolor{acento}{RGB}{176,58,46}
+
+\usefonttheme{professionalfonts}
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{structure}{fg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azul}
+\setbeamercolor{framesubtitle}{fg=azul,bg=azulclaro}
+\setbeamercolor{framenumber}{fg=azulclaro,bg=azul}
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{block title}{fg=white,bg=azul}
+\setbeamercolor{block body}{fg=black,bg=azulclaro}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{itemize items}{\small$\blacktriangleright$}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\small,series=\mdseries,shape=\itshape}
+\setbeamerfont{framenumber}{size=\footnotesize,series=\bfseries}
+\setbeamerfont{caption}{size=\scriptsize}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+
+% Título de cada slide en barra redondeada (con número de slide);
+% subtítulo en caja clara con filete lateral.
+\makeatletter
+\setbeamertemplate{frametitle}{%
+  \vspace*{0.5em}%
+  \begin{beamercolorbox}[wd=\textwidth,sep=0.45em,leftskip=0.3em,rightskip=0.3em,rounded=true,shadow=false]{frametitle}%
+    \usebeamerfont{frametitle}\strut\insertframetitle\hfill
+    {\usebeamerfont{framenumber}\usebeamercolor[fg]{framenumber}\insertframenumber\,/\,\inserttotalframenumber}%
+  \end{beamercolorbox}%
+  \ifx\insertframesubtitle\@empty\else
+    \par\vspace{0.3em}%
+    \hbox{%
+      {\color{acento}\vrule width 2.5pt}%
+      \begin{beamercolorbox}[wd=\dimexpr\textwidth-2.5pt\relax,sep=0.3em,leftskip=0.3em]{framesubtitle}%
+        \usebeamerfont{framesubtitle}\mdseries\strut\insertframesubtitle
+      \end{beamercolorbox}}%
+  \fi
+  \vspace{0.2em}%
+}
+\makeatother
+
+% Sin pie de página
+\setbeamertemplate{footline}{}
+
+\newcommand{\kB}{k_{B}}
+\newcommand{\fig}[1]{{\scriptsize\color{gris}#1}}
+
+% ---------------------------------------------------------------------
+\title[kMC adaptativo multirrégimen]{Advancing crystal growth prediction:\\
+  An adaptive kMC model spanning multiple regimes}
+\author{Satchit Nagpal \and Niranjan Sitapure \and Zachary Gagnon \and Joseph Sang-Il Kwon}
+\institute{Artie McFerrin Dept.\ of Chemical Engineering \& Texas A\&M Energy Institute\\
+  Texas A\&M University\\[0.6em]
+  \textit{Chemical Engineering Science} \textbf{299} (2024) 120472}
+%\date{Seminario de Maestría Física}
+% =====================================================================
+
+\begin{document}
+
+% ---------------------------------------------------------------- 1
+\begin{frame}[plain]
+  \vfill
+  \begin{beamercolorbox}[wd=\textwidth,sep=1em,center,rounded=true,shadow=false]{title}
+    {\Large\bfseries Advancing crystal growth prediction:\\[0.3em]
+     An adaptive kMC model spanning multiple regimes\par}
+    \vspace{0.5em}
+    {\color{white!60!azul}\rule{0.45\linewidth}{0.4pt}\par}
+    \vspace{0.35em}
+    {\normalsize\itshape Journal Alert -- Seminario de Posgrado en Física -- Sesión S6V\par}
+  \end{beamercolorbox}
+  \vspace{1.2em}
+  \centering
+  {\large S.~Nagpal,\; N.~Sitapure,\; Z.~Gagnon,\; J.~S.-I.~Kwon\par}
+  \vspace{0.5em}
+  {\small\color{gris}Artie McFerrin Department of Chemical Engineering \& Texas A\&M Energy Institute\\
+   Texas A\&M University, College Station, TX, USA\par}
+  \vspace{0.7em}
+  \makebox[\textwidth][c]{\begin{minipage}{0.62\textwidth}
+  \begin{beamercolorbox}[wd=\textwidth,sep=0.45em,center,rounded=true]{framesubtitle}
+    \small\textit{Chemical Engineering Science} \textbf{299} (2024) 120472\\
+    \footnotesize doi:10.1016/j.ces.2024.120472
+  \end{beamercolorbox}
+  \end{minipage}}\par
+  % \vspace{1.2em}{\small Expositor: Nombre Apellido\par}
+  \vfill
+\end{frame}
+
+% ---------------------------------------------------------------- 2
+% Slide conceptual y genérica sobre kMC (sin contenido específico del artículo)
+\begin{frame}{¿Qué es el Monte Carlo cinético (kMC)?}
+  \framesubtitle{\textbf{Definición:} Es un método estocástico que simula la evolución temporal de un sistema como una secuencia de saltos entre estados discretos, elegidos al azar según sus probabilidades de transición.}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[x=0.82cm,y=0.62cm,>=stealth]
+        % paisaje de energía
+        \draw[thick,azul] plot[smooth,tension=0.7] coordinates
+          {(0,2.1) (0.8,0.45) (1.6,1.75) (2.6,0.8) (3.5,1.95) (4.4,0.3) (5.3,1.9) (5.8,2.2)};
+        \node[font=\scriptsize,gris] at (0.8,0.1) {A};
+        \node[font=\scriptsize,gris] at (2.6,0.45) {B};
+        \node[font=\scriptsize,gris] at (4.4,-0.05) {C};
+        % sistema vibrando en A
+        \fill[acento] (0.8,0.62) circle (0.11);
+        \draw[gris] (0.45,0.95) -- (0.6,0.8) -- (0.72,0.98) -- (0.86,0.8) -- (1.0,0.98) -- (1.15,0.82);
+        % barrera y salto
+        \draw[<->,gris] (1.6,0.45) -- node[right,font=\scriptsize]{$E_k$} (1.6,1.72);
+        \draw[dashed,gris] (0.8,0.45) -- (1.6,0.45);
+        \draw[->,thick,acento] (0.95,0.75) .. controls (1.2,2.6) and (2.2,2.4) .. node[pos=0.5,above,font=\scriptsize,acento]{$r_k$} (2.45,1.0);
+        \draw[->,thick,acento!70] (2.75,1.0) to[out=70,in=110] (4.25,0.55);
+        \node[font=\scriptsize] at (2.9,-0.55) {coordenada de configuración};
+        \node[font=\scriptsize,rotate=90] at (-0.35,1.1) {energía};
+      \end{tikzpicture}\\[0.1em]
+      {\small TST:\ $r_k = \nu_0 \exp\!\left(-\dfrac{E_k}{k_B T}\right)$}
+    \end{column}
+    \begin{column}{0.55\textwidth}
+      \centering
+      \footnotesize
+      \renewcommand{\arraystretch}{1.15}
+      \begin{tabular}{@{}lll@{}}
+        \toprule
+        Método & Tiempo físico & Qué entrega \\
+        \midrule
+        DFT          & no (estático)            & energías y barreras \\
+        MD           & fs -- $\mu$s             & trayectorias atómicas \\
+        MC clásico   & no                       & estados de equilibrio \\
+        \textbf{kMC} & \textbf{$\mu$s -- horas} & \textbf{dinámica por eventos} \\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+  \end{columns}
+  \vspace{0.5em}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.485\textwidth}
+      \begin{block}{kMC vs.\ MC clásico (Metropolis)}
+        \footnotesize MC: acepta/rechaza $\Rightarrow$ \emph{equilibrio}, sin tiempo.\\
+        kMC: tasas reales $\Rightarrow$ \emph{dinámica} con tiempo físico.
+      \end{block}
+    \end{column}
+    \begin{column}{0.485\textwidth}
+      \begin{block}{Ventajas frente a MD y DFT}
+        \footnotesize Salta vibraciones $\Rightarrow$ escalas mesoscópicas.\\
+        Escalas temporales y espaciales más grandes.\\
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- supuestos kMC (nueva slide 3)
+\begin{frame}{Supuestos geométricos del modelo kMC en este estudio}
+  \framesubtitle{Red cuadrada de sitios kMC vista desde arriba.}
+  \vspace{-0.3em}
+  \begin{columns}[T,onlytextwidth]
+    % ---- (a) SOS: mapa de alturas
+    \begin{column}{0.32\textwidth}
+      \centering
+      \begin{tikzpicture}[x=0.33cm,y=0.33cm]
+        \foreach \row [count=\y] in {{1,1,1,2,2,2},{1,1,2,2,2,3},{1,1,2,2,3,3},{0,1,1,2,2,3},{0,0,1,1,2,2},{0,0,1,1,1,2}}{
+          \foreach \h [count=\x] in \row {
+            \pgfmathsetmacro{\pct}{12+24*\h}
+            \ifnum\h>1 \def\tc{white}\else\def\tc{black}\fi
+            \fill[azul!\pct] (\x,-\y) rectangle ++(1,1);
+            \draw[white,line width=0.5pt] (\x,-\y) rectangle ++(1,1);
+            \node[font=\tiny,text=\tc] at (\x+0.5,-\y+0.5) {\h};
+          }
+        }
+      \end{tikzpicture}\\[0.2em]
+      {\color{azul}\bfseries\small Modelo SOS}\par
+      %{\scriptsize\color{gris}Cada sitio $(x,y)$: columna de altura entera $h$; sin huecos internos ni voladizos\par}
+    \end{column}
+    % ---- (b) vecindad de von Neumann
+    \begin{column}{0.32\textwidth}
+      \centering
+      \begin{tikzpicture}[x=0.40cm,y=0.40cm]
+        \foreach \x in {0,...,4} \foreach \y in {0,...,4}
+          \draw[gris!50,fill=white] (\x,\y) rectangle ++(1,1);
+        \foreach \x/\y in {0/0,0/4,4/0,4/4,1/1,1/3,3/1,3/3}
+          \node[font=\tiny,gris!60] at (\x+0.5,\y+0.5) {$\times$};
+        \foreach \x/\y/\l in {2/3/N,2/1/S,3/2/E,1/2/W}{
+          \fill[azul!45] (\x,\y) rectangle ++(1,1);
+          \draw[white] (\x,\y) rectangle ++(1,1);
+          \node[font=\scriptsize\bfseries,white] at (\x+0.5,\y+0.5) {\l};
+        }
+        \fill[acento] (2,2) rectangle ++(1,1);
+        \draw[white] (2,2) rectangle ++(1,1);
+      \end{tikzpicture}\\[0.2em]
+      {\color{azul}\bfseries\small Vecindad de von Neumann}\par
+      %{\scriptsize\color{gris}Vecinos N, S, E, W; \ $i\in\{0,\dots,4\}$ = número de vecinos ocupados\par}
+    \end{column}
+    % ---- (c) condiciones de frontera periódicas
+    \begin{column}{0.32\textwidth}
+      \centering
+      \begin{tikzpicture}[x=0.40cm,y=0.40cm,>=stealth]
+        % celdas fantasma (copias periódicas)
+        \foreach \y in {1,...,4}{
+          \draw[dashed,gris!60,fill=acento!15] (5,\y) rectangle ++(1,1);
+          \draw[dashed,gris!60,fill=azul!15] (0,\y) rectangle ++(1,1);
+        }
+        % red principal
+        \foreach \x in {1,...,4} \foreach \y in {1,...,4}
+          \draw[gris!60,fill=white] (\x,\y) rectangle ++(1,1);
+        \foreach \y in {1,...,4}{
+          \fill[acento!55] (1,\y) rectangle ++(1,1);
+          \fill[azul!45] (4,\y) rectangle ++(1,1);
+          \draw[white] (1,\y) rectangle ++(1,1);
+          \draw[white] (4,\y) rectangle ++(1,1);
+        }
+        \draw[azul,thick] (1,1) rectangle (5,5);
+        \draw[->,acento,thick] (1.5,5.1) to[out=35,in=145] node[above,font=\tiny,inner sep=1pt]{$x\equiv x+N$} (5.5,5.1);
+      \end{tikzpicture}\\[0.2em]
+      {\color{azul}\bfseries\small Fronteras periódicas}\par
+      %{\scriptsize\color{gris}Sin bordes (toro): las copias punteadas repiten el borde opuesto\par}
+    \end{column}
+  \end{columns}
+  \vspace{0.1em}
+  %\begin{columns}[T,onlytextwidth]
+    %\begin{column}{0.485\textwidth}
+      \begin{block}{\centering Estado y eventos}
+        \centering
+        %\footnotesize
+        Estado: mapa de alturas $\{h(x,y)\}$\\
+        Adsorción $h\to h{+}1$ \ · \ Desorción $h\to h{-}1$\\
+        Migración: a un vecino más bajo (equiprobable)
+      \end{block}
+    %\end{column}
+    %\begin{column}{0.485\textwidth}
+    %  \begin{block}{Fundamentos kMC aplicados}
+    %    \footnotesize
+    %    Tasas por TST, función de $i$ (y de $\Delta\mu$)\\
+    %    BKL sin rechazo: \ $\Delta t_{kMC} = -\ln(\zeta_t)/W_{tot}$\\
+    %    Sin barreras de Ehrlich--Schwoebel; inicio aleatorio
+    %  \end{block}
+    %\end{column}
+  %\end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- 5
+\begin{frame}{Sitios de adsorción en superficie cristalina}
+  \framesubtitle{$i$ = número de vecinos más cercanos.}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.47\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{page_2_0.jpg}\\
+      \fig{Fig.~1. Sitios de adsorción en un cristal facetado.}
+    \end{column}
+    \begin{column}{0.51\textwidth}
+      \centering
+      \renewcommand{\arraystretch}{0.9}
+      \begin{tabular}{@{}c@{\hspace{3pt}}c@{\hspace{3pt}}c@{}}
+        \includegraphics[width=0.32\linewidth,trim=0 0 9bp 0,clip]{page_5_1.jpg} &
+        \includegraphics[width=0.32\linewidth,trim=0 0 9bp 0,clip]{page_5_2.jpg} &
+        \includegraphics[width=0.32\linewidth,trim=0 0 9bp 0,clip]{page_5_3.jpg} \\
+        {\scriptsize adatom, $i=0$} & {\scriptsize edge, $i=1$} & {\scriptsize kink, $i=2$} \\[0.4em]
+        \includegraphics[width=0.32\linewidth,trim=0 0 9bp 0,clip]{page_5_4.jpg} &
+        \includegraphics[width=0.32\linewidth,trim=0 0 9bp 0,clip]{page_5_5.jpg} &
+        \includegraphics[width=0.32\linewidth,trim=0 0 9bp 0,clip]{page_5_0.jpg} \\
+        {\scriptsize hang, $i=3$} & {\scriptsize vacancy, $i=4$} & {\scriptsize superficie inicial}
+      \end{tabular}\\[0.3em]
+      \fig{Fig.~2. Configuraciones de adsorción consideradas.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- 7
+\begin{frame}{Termodinámica de la nucleación bidimensional}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.5\textwidth}
+      \begin{align}
+        \Delta\mu &= \kB T \ln\frac{C}{C_{eq}} = \kB T \ln{(\sigma + 1)} \tag{1}\\[0.3em]
+        \Delta G  &= -N\Delta\mu + \gamma^{edge} A \tag{2}\\[0.3em]
+        \Delta G  &= -l^{2} d\,\frac{\Delta\mu}{V_M} + 4\,l\,d\,\gamma^{edge} \tag{3}\\[0.3em]
+        l_c &= \frac{2\gamma^{edge} V_M}{\Delta\mu} \tag{4}
+      \end{align}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{page_4_0.jpg}\\
+      \fig{Fig.~3. Crecimiento 2D sobre una cara: isla de lado $l$, espaciado interplanar $d$.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- 6
+\begin{frame}{Regímenes de crecimiento y energía de fijación}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.50\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{page_3_0.jpg}\\
+      \fig{Fig.~4. Mecanismos de crecimiento en cristalización en solución.}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \renewcommand{\arraystretch}{1.25}
+      \begin{tabular}{lcc}
+        \toprule
+        $\sigma$ & Sitio dominante & Régimen \\
+        \midrule
+        baja     & kink ($i=2$)    & espiral \\
+        media    & edge ($i=1$)    & escalón (2D) \\
+        alta     & adatom ($i=0$)  & rugoso \\
+        \bottomrule
+      \end{tabular}\\[1.2em]
+      \begin{block}{Hartman--Perdok}
+        \centering
+        $E_{\text{fij}}\uparrow \;\Rightarrow\; t_{\text{enlace}}\downarrow \;\Rightarrow\; v_{\text{cara}}\uparrow$
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- 3
+\begin{frame}{Motivación y problema}
+  \framesubtitle{Un mismo cristal crece por mecanismos distintos según la sobresaturación $\sigma$.}
+  \centering
+  \begin{tikzpicture}[>=stealth,
+      cab/.style={fill=azul,text=white,rounded corners=3pt,font=\small\bfseries,
+                  text width=3.8cm,align=center,inner sep=3pt,minimum height=0.6cm},
+      caja/.style={draw=azul,fill=azulclaro,rounded corners=3pt,font=\footnotesize,
+                   text width=3.8cm,align=flush left,inner sep=5pt,minimum height=3.1cm,anchor=north},
+      paso/.style={->,very thick,acento}]
+    % ---- 1. Motivación
+    \node[cab] (h1) at (0,0) {Motivación};
+    \node[caja] (b1) at ([yshift=-2pt]h1.south) {%
+      \textbf{Morfología} $\Rightarrow$ actividad y biodisponibilidad de APIs, \emph{quantum dots}\\[0.4em]
+      \textbf{Lotes:} variabilidad, escalado, control de tamaño y forma};
+    % ---- 2. Causa raíz
+    \node[cab] (h2) at (4.9,0) {Causa raíz};
+    \node[caja] (b2) at ([yshift=-2pt]h2.south) {%
+      \textbf{Coexisten mecanismos} según las condiciones de operación\\[0.4em]
+      En solución, $\sigma$ es la \textbf{variable principal}\\[0.3em]
+      {\centering\scriptsize espiral\,$\to$\,escalón\,$\to$\,rugoso\\
+       {\color{gris}($\sigma$ creciente)}\par}};
+    % ---- 3. Problema
+    \node[cab] (h3) at (9.8,0) {Problema};
+    \node[caja] (b3) at ([yshift=-2pt]h3.south) {%
+      kMC previo (Nayhouse \emph{et al.}, 2013) ajustado a \textbf{un solo régimen}\\[0.4em]
+      $\Rightarrow$ sin transferibilidad \textbf{régimen a régimen (R2R)}\\[0.2em]
+      $\Rightarrow$ desajuste planta--modelo};
+    % ---- flechas
+    \draw[paso] (b1.east) -- (b2.west);
+    \draw[paso] (b2.east) -- (b3.west);
+    % ---- Propuesta
+    \node[fill=azul,text=white,rounded corners=3pt,font=\small,text width=13.3cm,
+          align=center,inner sep=5pt,anchor=north] (prop) at ([yshift=-0.45cm]b2.south) {%
+      \textbf{Propuesta:} tasa de adsorción \textbf{adaptativa} \ $r_{a_i}(\delta,\,i,\,\Delta\mu)$\\
+      energías de fijación $+$ sobresaturación $\Rightarrow$ un solo modelo para los tres regímenes};
+    \draw[paso] (b3.south) -- (b3.south |- prop.north);
+    \node[anchor=north,font=\scriptsize,text=gris] at ([yshift=-0.12cm]prop.south) {%
+      Caso de estudio: lisozima HEW tetragonal, caras (110) y (101)};
+  \end{tikzpicture}
+\end{frame}
+
+
+
+
+
+% ---------------------------------------------------------------- 8
+\begin{frame}{Del núcleo crítico al sitio de adsorción}
+  %\framesubtitle{Discusión de los regímenes}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.52\textwidth}
+      \[
+        l_c = \frac{2\gamma^{edge} V_M}{\Delta\mu}
+        \qquad \sigma\uparrow \;\Rightarrow\; \Delta\mu\uparrow \;\Rightarrow\; l_c\downarrow
+      \]
+      \vspace{0.2em}
+      \renewcommand{\arraystretch}{1.3}
+      \small
+      \begin{tabular}{@{}l>{\raggedright\arraybackslash}p{0.62\linewidth}@{}}
+        \toprule
+        Régimen & Tamaño crítico \\
+        \midrule
+        Espiral & $l_c$ grande: superficie lisa salvo defectos \\
+        Escalón & islas de tamaño $\approx l_c$ \\
+        Rugoso  & $l_c <$ tamaño de una GU: rugosidad \\
+        \bottomrule
+      \end{tabular}\\[0.5em]
+      {\footnotesize $l>l_c$: crece \quad $l<l_c$: decae}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \begin{block}{Energía libre por GU adsorbida}
+        \begin{equation}
+          \Delta G_{GU} = -\Delta\mu + A_{GU}\,\gamma_{edge} \tag{5}
+        \end{equation}
+        \[
+          A_{GU} = i\,A_f
+        \]
+      \end{block}
+      \vspace{0.4em}
+      {\small $A_{GU}\gamma_{edge}$: energía de enlace de la GU en un sitio con $i$ vecinos}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- 9
+% \begin{frame}{Modelo kMC: detalles de simulación}
+%   \begin{columns}[c,onlytextwidth]
+%     \begin{column}{0.52\textwidth}
+%       \begin{itemize}\setlength{\itemsep}{0.6em}
+%         \item BKL rechazo-libre: procesos de Poisson independientes
+%         \item Eventos: \textbf{adsorción}, \textbf{desorción}, \textbf{migración}
+%         \item Red cuadrada SOS $75\times75$, fronteras periódicas {\footnotesize (probado $N\in[50,200]$)}
+%         \item Inicialización aleatoria, $T$ fija
+%         \item 10 simulaciones independientes por condición
+%       \end{itemize}
+%     \end{column}
+%     \begin{column}{0.45\textwidth}
+%       \centering
+%       \includegraphics[width=0.95\linewidth,trim=0 0 9bp 0,clip]{page_5_0.jpg}\\
+%       \fig{Fig.~4a. Superficie SOS inicial.}
+%     \end{column}
+%   \end{columns}
+% \end{frame}
+
+% ---------------------------------------------------------------- 10
+\begin{frame}{Tasa de adsorción adaptativa}
+  %\framesubtitle{Núcleo de la propuesta}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.58\textwidth}
+      %\begin{block}{}
+      \begin{equation}
+        r_a = K_a \exp\!\left(-\frac{\Delta G_{GU}}{\kB T}\right) \tag{6}
+      \end{equation}
+      %\end{block}
+      \vspace{-0.4em}
+      \begin{block}{}
+        \begin{equation}
+          r_{a_i} = K_0^{+}\exp\!\left(\frac{\Delta\mu}{\kB T} + i\,\frac{\delta}{\Delta\mu}\right) \tag{7}
+        \end{equation}
+      \end{block}
+      %\begin{block}{}
+      \begin{equation}
+        W_a = \sum_{i=0}^{4} M_i\, r_{a_i} \tag{8}
+      \end{equation}
+      %\end{block}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \small
+      \begin{itemize}\setlength{\itemsep}{0.6em}
+        \vspace{0.95cm}
+        \item $\delta$: energía de fijación; controla el ancho de transición entre regímenes
+        \item $M_i$: número de sitios con $i$ vecinos
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- 11
+\begin{frame}{Tasas de desorción y migración}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.60\textwidth}
+      \small
+      \begin{align}
+        r_{d_i} &= K_0^{-}\exp\!\left(-\frac{E_b}{\kB T}\right) = K_0^{-}\exp\!\left(-i\,\frac{E_{pb}}{\kB T}\right) \tag{9}\\
+        W_d &= \sum_{i=0}^{4} M_i\, r_{d_i} \tag{10}\\
+        r_{m_i} &= K_0^{-}\exp\!\left(\frac{E_{pb}}{2\kB T} - i\,\frac{E_{pb}}{\kB T}\right) \tag{11}\\
+        W_m &= \sum_{i=0}^{3} M_i\, r_{m_i} \tag{12}
+      \end{align}
+      {\footnotesize $E_{pb}$: energía media por enlace; \ $E_b = iE_{pb}$}
+    \end{column}
+    \begin{column}{0.38\textwidth}
+      \centering
+      \includegraphics[width=0.78\linewidth]{page_5_6.jpg}\\
+      \fig{Fig.~5a. Desorción.}\\[0.3em]
+      \includegraphics[width=0.78\linewidth]{page_5_7.jpg}\\
+      \fig{Fig.~5b. Migración.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- 12
+\begin{frame}{Balance detallado y tasa total}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.42\textwidth}
+      \small
+      {\color{azul}Equilibrio: $\Delta G = 0$}
+      \begin{align}
+        r_{a_i}(\Delta G = 0) &= r_{d_i}(\phi) \tag{13}\\[0.3em]
+        K_0^{-} &= K_0^{+}\exp\!\left(\frac{\phi}{\kB T}\right) \tag{14}
+      \end{align}
+      \vspace{0.3em}
+      {\footnotesize $\phi$: energía de enlace por GU de la red totalmente ocupada}
+    \end{column}
+    \begin{column}{0.56\textwidth}
+      \small
+      \begin{block}{}
+        \begin{align}
+          r_{d_i} &= K_0^{+}\exp\!\left(\frac{\phi}{\kB T} - i\,\frac{E_{pb}}{\kB T}\right) \tag{15}\\[0.3em]
+          r_{m_i} &= K_0^{+}\exp\!\left(\frac{\phi}{\kB T} + \frac{E_{pb}}{2\kB T} - i\,\frac{E_{pb}}{\kB T}\right) \tag{16}
+        \end{align}
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{0.8em}
+  \begin{block}{}
+    \begin{equation}
+      W_{tot} = W_a + W_d + W_m \tag{17}
+    \end{equation}
+  \end{block}
+\end{frame}
+
+% ---------------------------------------------------------------- 13
+\begin{frame}{Algoritmo de ejecución de eventos}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.450\textwidth}
+      \centering
+      \includegraphics[height=0.74\textheight]{page_7_0.jpg}\\
+      \fig{Fig.~6. Diagrama de flujo.}
+    \end{column}
+    \begin{column}{0.68\textwidth}
+      \footnotesize
+      {\color{azul}\bfseries Tabla 1.} Selección del evento ($P_k = W_k/W_{tot}$)\\[0.2em]
+      \begin{tabular}{ll}
+        \toprule
+        $0<\zeta\le P_a$ & Adsorción \\
+        $P_a<\zeta\le P_a+P_d$ & Desorción \\
+        $P_a+P_d<\zeta\le P_a+P_d+P_m$ & Migración \\
+        \bottomrule
+      \end{tabular}\\[1.9em]
+      {\color{azul}\bfseries Tabla 2.} Selección de la clase $i$ ($j=1,2,3$)\\[0.2em]
+      \renewcommand{\arraystretch}{1.25}
+      \begin{tabular}{ll}
+        \toprule
+        $0<\zeta_j\le \dfrac{r_j(0)}{\sum_{i=0}^{4} r_j(i)}$ & $i=0$ \\
+        $\dfrac{\sum_{i=0}^{n-1} r_j(i)}{\sum_{i=0}^{4} r_j(i)} < \zeta_j \le \dfrac{\sum_{i=0}^{n} r_j(i)}{\sum_{i=0}^{4} r_j(i)}$ & $i=n=1,2,3,4$ \\
+        \bottomrule
+      \end{tabular}\\[1.9em]
+      \begin{equation}
+        \Delta t_{kMC} = -\frac{\ln(\zeta_t)}{W_{tot}},\qquad \zeta_t\in(0,1] \tag{18}
+      \end{equation}
+      %Migración: dirección aleatoria; sólo hacia vecino más bajo
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- 14
+\begin{frame}{Resultados: tasas de crecimiento de la lisozima HEW}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.385\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{page_8_0.jpg}
+    \end{column}
+    \begin{column}{0.385\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{page_8_1.jpg}
+    \end{column}
+    \begin{column}{0.22\textwidth}
+      \scriptsize
+      \renewcommand{\arraystretch}{1.2}
+      \begin{tabular}{@{}lcc@{}}
+        \toprule
+                         & (110) & (101) \\
+        \midrule
+        $E_{pb}/\kB T$   & 0.48  & 2.12 \\
+        $\phi/\kB T$     & 3.76  & 4.27 \\
+        $\delta$         & 0.63  & 0.30 \\
+        $K_0^{+}$        & \multicolumn{2}{c}{0.211} \\
+        \midrule
+        $R^2$            & 0.96  & 0.98 \\
+        \bottomrule
+      \end{tabular}\\[0.6em]
+      $C$: 30--135 mg/mL\\
+      $C_{eq}$: 15 mg/mL\\
+      Datos: Yoshizaki \emph{et al.} (2001)
+    \end{column}
+  \end{columns}
+  \vspace{0.3em}
+  \fig{Fig.~7. Modelo propuesto (rojo), modelo previo (Nayhouse \emph{et al.}, 2013; punteado) y datos experimentales para las caras (a) (110) y (b) (101).}
+\end{frame}
+
+% ---------------------------------------------------------------- 15
+\begin{frame}{Resultados: probabilidades de adsorción por tipo de sitio}
+  \framesubtitle{Los cruces entre curvas definen las transiciones de régimen}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.56\textwidth}
+      \centering
+      \includegraphics[height=0.60\textheight]{page_8_2.jpg}\\
+      \fig{Fig.~8. Probabilidad de adsorción de las GUs vs.\ $\sigma$.}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \renewcommand{\arraystretch}{1.35}
+      \begin{tabular}{@{}lll@{}}
+        \toprule
+        $\sigma$ & Sitio dominante & Régimen \\
+        \midrule
+        $\lesssim 2$   & kink ($i=2$)   & espiral \\
+        $[3,6]$        & step ($i=1$)   & escalón \\
+        $\gtrsim 6$    & adatom ($i=0$) & rugoso \\
+        \bottomrule
+      \end{tabular}\\[1.2em]
+      \begin{block}{Transiciones}
+        \small
+        kink $\to$ step: \ espiral--escalón\\
+        step $\to$ adatom: \ escalón--rugoso
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- 16
+\begin{frame}{Resultados: morfología superficial en los tres regímenes}
+  \framesubtitle{Azul: capa totalmente llena \quad·\quad Rojo: capa superior en crecimiento}
+  \centering
+  \includegraphics[height=0.62\textheight]{page_9_0.jpg}\\[0.2em]
+  \fig{Fig.~9. Snapshots en $t = 4.5,\ 5.0,\ 5.5$~s: (a) espiral $\sigma=2$, (b) escalón $\sigma=5$, (c) rugoso $\sigma=8$.}
+\end{frame}
+
+% ---------------------------------------------------------------- 17
+\begin{frame}{Conclusiones}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.56\textwidth}
+      \begin{itemize}\setlength{\itemsep}{0.7em}
+        \item Tasa de adsorción que se \textbf{adapta} a $\sigma$ y $T$ locales vía energías de fijación
+        \item Transición continua espiral $\leftrightarrow$ escalón $\leftrightarrow$ rugoso con \textbf{un solo conjunto de parámetros} por cara
+        \item Lisozima HEW: $R^2 = 0.96$ (110), $0.98$ (101)
+        \item Superior al kMC previo en transiciones R2R
+        \item Morfología coherente con cada régimen
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \begin{block}{Limitaciones}
+        \small
+        Desviación a baja $\sigma$; faltan desolvatación y refinamiento de la migración
+      \end{block}
+      \vspace{0.4em}
+      \begin{block}{Perspectivas}
+        \small
+        Modelos híbridos con \emph{time-series transformers}: gemelo digital interpretable
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- cierre
+\begin{frame}{¡Gracias por su atención!}
+  %\framesubtitle{Una sola tasa de adsorción para los tres regímenes de crecimiento.}
+  %\begin{columns}[c,onlytextwidth]
+  %  \begin{column}{0.48\textwidth}
+  %    \centering
+  %    \includegraphics[width=\linewidth]{page_3_0.jpg}\\
+  %    \fig{Fig.~4. Espiral, escalón y rugoso al aumentar $\sigma$.}
+  %  \end{column}
+  %  \begin{column}{0.48\textwidth}
+  %    \centering
+  %    \begin{block}{\centering Idea central}
+  %      \begin{equation*}
+  %        r_{a_i} = K_0^{+}\exp\!\left(\frac{\Delta\mu}{\kB T} + i\,\frac{\delta}{\Delta\mu}\right)
+  %      \end{equation*}
+  %      \centering\small
+  %      $\sigma\uparrow$: \ kink $\to$ edge $\to$ adatom\\
+  %      espiral $\to$ escalón $\to$ rugoso
+  %    \end{block}
+  %    \vspace{1.2em}
+      
+      \begin{block}{}
+        \centering
+        \Large ¿Preguntas?
+      \end{block}
+  %    {\Large\bfseries\color{azul} ¿Preguntas?\par}
+  %  \end{column}
+  %\end{columns}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,185 @@
+\newcommand{\benchcol}[2]{\parbox[t]{#1}{#2}}
+\newcommand{\benchcat}[1]{\benchcol{2.8cm}{#1}}
+\newcommand{\benchset}[1]{\benchcol{3.1cm}{#1}}
+\newcommand{\benchsize}[1]{\benchcol{2.2cm}{#1}}
+\newcommand{\benchdesc}[1]{\benchcol{4.6cm}{#1}}
+\newcommand{\benchref}[1]{\benchcol{2.4cm}{#1}}
+\newcommand{\benchcite}[1]{\benchcol{1.8cm}{#1}}
+
+\begin{longtable*}{l l l l l l}
+\caption{Benchmark datasets used in this work.}
+\label{tab:benchmarks_full}\\
+\toprule
+\benchcat{Category} & \benchset{Dataset} & \benchsize{Size (structures)} & \benchdesc{Description} & \benchref{Reference level} & \benchcite{Citation} \\
+\midrule
+\endfirsthead
+\toprule
+\benchcat{Category} & \benchset{Dataset} & \benchsize{Size (structures)} & \benchdesc{Description} & \benchref{Reference level} & \benchcite{Citation} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\emph{Continued on next page}}\\
+\midrule
+\endfoot
+\bottomrule
+\endlastfoot
+
+\benchcat{\textbf{Barrier heights (GSCDB)}} & \benchset{BH28 (GSCDB)} & \benchsize{28} & \benchdesc{Barrier heights subset} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Karton_2019}} \\
+\benchcat{} & \benchset{BH46 (GSCDB)} & \benchsize{46} & \benchdesc{Barrier heights} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Zhao2008BH76,zhao2005multi,zhao2005benchmark}} \\
+\benchcat{} & \benchset{BH876 (GSCDB)} & \benchsize{876} & \benchdesc{Barrier heights} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Prasad2021}} \\
+\benchcat{} & \benchset{BHDIV7 (GSCDB)} & \benchsize{7} & \benchdesc{Barrier heights} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk2017}} \\
+\benchcat{} & \benchset{BHPERI11 (GSCDB)} & \benchsize{11} & \benchdesc{Pericyclic barriers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,goerigk2010general}} \\
+\benchcat{} & \benchset{BHROT27 (GSCDB)} & \benchsize{27} & \benchdesc{Rotational barriers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk2017}} \\
+\benchcat{} & \benchset{CRBH14 (GSCDB)} & \benchsize{14} & \benchdesc{Cycloreversion barriers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Yu2015CRBH}} \\
+\benchcat{} & \benchset{DBH22 (GSCDB)} & \benchsize{22} & \benchdesc{BH76 subset} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Karton2008DBH,Zheng_2007}} \\
+\benchcat{} & \benchset{INV23 (GSCDB)} & \benchsize{23} & \benchdesc{Inversion/racemisation barriers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk_2016}} \\
+\benchcat{} & \benchset{ORBH35 (GSCDB)} & \benchsize{35} & \benchdesc{Oxygen reaction barriers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Chan2018}} \\
+\benchcat{} & \benchset{PX9 (GSCDB)} & \benchsize{9} & \benchdesc{Proton-exchange barriers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Karton2012PX}} \\
+\benchcat{} & \benchset{WCPT26 (GSCDB)} & \benchsize{26} & \benchdesc{Water-catalyzed proton transfer} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Karton2012WCPT}} \\
+
+\benchcat{\textbf{Electric field props (GSCDB)}} & \benchset{Dip146 (GSCDB)} & \benchsize{190} & \benchdesc{Dipole moments} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,hait2018dipole}} \\
+\benchcat{} & \benchset{HR46 (GSCDB)} & \benchsize{128} & \benchdesc{Polarizabilities} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,hickey2014benchmarking}} \\
+\benchcat{\textbf{Isomerisation (GSCDB)}} & \benchset{AlkIsomer11 (GSCDB)} & \benchsize{11} & \benchdesc{Alkane isomerisation} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Karton_2009}} \\
+\benchcat{} & \benchset{C20C246 (GSCDB)} & \benchsize{6} & \benchdesc{C20/C24 isomers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Manna_2016}} \\
+\benchcat{} & \benchset{C60ISO7 (GSCDB)} & \benchsize{7} & \benchdesc{C60 isomers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Sure_2017}} \\
+\benchcat{} & \benchset{DIE60 (GSCDB)} & \benchsize{60} & \benchdesc{Conjugated diene migration} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Yu_2014}} \\
+\benchcat{} & \benchset{EIE22 (GSCDB)} & \benchsize{22} & \benchdesc{Enecarbonyl isomers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Yu_2015An}} \\
+\benchcat{} & \benchset{ISO34 (GSCDB)} & \benchsize{34} & \benchdesc{Small/medium isomers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,grimme2007compute}} \\
+\benchcat{} & \benchset{ISOL23 (GSCDB)} & \benchsize{23} & \benchdesc{Large organic isomers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,huenerbein2010effects}} \\
+\benchcat{} & \benchset{ISOMERIZATION20 (GSCDB)} & \benchsize{20} & \benchdesc{W4-11 isomerisation} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,karton2011w4}} \\
+\benchcat{} & \benchset{PArel (GSCDB)} & \benchsize{20} & \benchdesc{Protonated isomers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk2017}} \\
+\benchcat{} & \benchset{Styrene42 (GSCDB)} & \benchsize{42} & \benchdesc{C$_8$H$_8$ isomers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Karton_2012Explicitly}} \\
+\benchcat{} & \benchset{TAUT15 (GSCDB)} & \benchsize{15} & \benchdesc{Tautomer isomerisation} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk2017}} \\
+
+\benchcat{\textbf{Intramolecular NCI (GSCDB)}} & \benchset{ACONF (GSCDB)} & \benchsize{15} & \benchdesc{Alkane conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Gruzman_2009}} \\
+\benchcat{} & \benchset{Amino20x4 (GSCDB)} & \benchsize{80} & \benchdesc{Amino-acid conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Kesharwani_2016}} \\
+\benchcat{} & \benchset{BUT14DIOL (GSCDB)} & \benchsize{64} & \benchdesc{Butane-1,4-diol confs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,kozuch2014conformational}} \\
+\benchcat{} & \benchset{ICONF (GSCDB)} & \benchsize{17} & \benchdesc{Inorganic conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk2017}} \\
+\benchcat{} & \benchset{IDISP (GSCDB)} & \benchsize{6} & \benchdesc{Intramolecular dispersion} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,goerigk2010general}} \\
+\benchcat{} & \benchset{MCONF (GSCDB)} & \benchsize{51} & \benchdesc{Melatonin conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,fogueri2013melatonin}} \\
+\benchcat{} & \benchset{PCONF21 (GSCDB)} & \benchsize{18} & \benchdesc{Peptide conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,vreha2005structure,goerigk2013accurate}} \\
+\benchcat{} & \benchset{Pentane13 (GSCDB)} & \benchsize{13} & \benchdesc{n-Pentane torsions} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Martin_2013}} \\
+\benchcat{} & \benchset{SCONF (GSCDB)} & \benchsize{17} & \benchdesc{Sugar conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,csonka2009evaluation}} \\
+\benchcat{} & \benchset{UPU23 (GSCDB)} & \benchsize{23} & \benchdesc{RNA-backbone conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Kruse_2015}} \\
+
+\benchcat{\textbf{Noncovalent (GSCDB)}} & \benchset{3B-69 (GSCDB)} & \benchsize{69} & \benchdesc{Three-body NCIs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Rezac2015Benchmark}} \\
+\benchcat{} & \benchset{3BHET (GSCDB)} & \benchsize{20} & \benchdesc{Three-body hetero NCIs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Ochieng_2023}} \\
+\benchcat{} & \benchset{A19Rel6 (GSCDB)} & \benchsize{114} & \benchdesc{A24 PEC relatives} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Witte_2015}} \\
+\benchcat{} & \benchset{A24 (GSCDB)} & \benchsize{24} & \benchdesc{Small NCI dimers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Rezac2013Describing}} \\
+\benchcat{} & \benchset{ADIM6 (GSCDB)} & \benchsize{6} & \benchdesc{Alkane dimers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,grimme2010consistent}} \\
+\benchcat{} & \benchset{AHB21 (GSCDB)} & \benchsize{21} & \benchdesc{Anion-neutral dimers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Lao_2015}} \\
+\benchcat{} & \benchset{Bauza30 (GSCDB)} & \benchsize{30} & \benchdesc{Halogen/chalcogen/pnicogen dimers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Bauza_2013}} \\
+\benchcat{} & \benchset{BzDC215 (GSCDB)} & \benchsize{215} & \benchdesc{Benzene dimer PECs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Crittenden_2009}} \\
+\benchcat{} & \benchset{CARBHB8 (GSCDB)} & \benchsize{8} & \benchdesc{Carbene–X hydrogen bonds} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk2017}} \\
+\benchcat{} & \benchset{CHB6 (GSCDB)} & \benchsize{6} & \benchdesc{Cation-neutral dimers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Lao_2015}} \\
+\benchcat{} & \benchset{CT20 (GSCDB)} & \benchsize{20} & \benchdesc{Charge transfer} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Steinmann_2012}} \\
+\benchcat{} & \benchset{DS14 (GSCDB)} & \benchsize{14} & \benchdesc{Divalent sulfur NCIs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Mintz2012}} \\
+\benchcat{} & \benchset{FmH2O10 (GSCDB)} & \benchsize{10} & \benchdesc{F$^-$(H$_2$O)$_{10}$ isomers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,lao2013improved}} \\
+\benchcat{} & \benchset{H2O16Rel4 (GSCDB)} & \benchsize{4} & \benchdesc{(H$_2$O)$_{16}$ conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,yoo2010high}} \\
+\benchcat{} & \benchset{H2O20Rel9 (GSCDB)} & \benchsize{9} & \benchdesc{(H$_2$O)$_{20}$ conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,kazimirski2003search}} \\
+\benchcat{} & \benchset{HB49 (GSCDB)} & \benchsize{49} & \benchdesc{Hydrogen bonds} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Boese_2015}} \\
+\benchcat{} & \benchset{HB262 (GSCDB)} & \benchsize{262} & \benchdesc{Hydrogen bonds} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Rezac2020}} \\
+\benchcat{} & \benchset{HCP32 (GSCDB)} & \benchsize{32} & \benchdesc{Halogen/chalcogen/pnicogen} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Oliveira_2017}} \\
+\benchcat{} & \benchset{He3 (GSCDB)} & \benchsize{49} & \benchdesc{He trimer 3-body NCIs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,lang2023three}} \\
+\benchcat{} & \benchset{HEAVY28 (GSCDB)} & \benchsize{28} & \benchdesc{Heavy-element NCIs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,grimme2010consistent}} \\
+\benchcat{} & \benchset{HSG (GSCDB)} & \benchsize{21} & \benchdesc{Protein-ligand fragments} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,faver2011formal}} \\
+\benchcat{} & \benchset{HW30 (GSCDB)} & \benchsize{30} & \benchdesc{Hydrocarbon–water dimers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Copeland_2012}} \\
+\benchcat{} & \benchset{HW6Cl5 (GSCDB)} & \benchsize{5} & \benchdesc{Cl$^-$–water clusters} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,lao2013improved}} \\
+\benchcat{} & \benchset{HW6F (GSCDB)} & \benchsize{6} & \benchdesc{F$^-$–water clusters} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,lao2013improved}} \\
+\benchcat{} & \benchset{IHB100 (GSCDB)} & \benchsize{100} & \benchdesc{Ionic hydrogen bonds} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Rezac2020}} \\
+\benchcat{} & \benchset{IHB100x2 (GSCDB)} & \benchsize{200} & \benchdesc{Ionic H-bond PECs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Rezac2020}} \\
+\benchcat{} & \benchset{IL16 (GSCDB)} & \benchsize{16} & \benchdesc{Ionic liquids} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Lao_2015}} \\
+\benchcat{} & \benchset{NBC10 (GSCDB)} & \benchsize{184} & \benchdesc{NCI PECs (benzene etc.)} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,takatani2007performance,hohenstein2009effects}} \\
+\benchcat{} & \benchset{NC11 (GSCDB)} & \benchsize{11} & \benchdesc{Small NCIs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Smith_2014}} \\
+\benchcat{} & \benchset{O24 (GSCDB)} & \benchsize{24} & \benchdesc{Open-shell dimers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,madajczyk2021dataset}} \\
+\benchcat{} & \benchset{O24x4 (GSCDB)} & \benchsize{96} & \benchdesc{Open-shell PECs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,madajczyk2021dataset}} \\
+\benchcat{} & \benchset{PNICO23 (GSCDB)} & \benchsize{23} & \benchdesc{Pnicogen NCIs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,setiawan2015strength}} \\
+\benchcat{} & \benchset{RG10N (GSCDB)} & \benchsize{275} & \benchdesc{Rare-gas dimer PECs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,przybytek2017pair}} \\
+\benchcat{} & \benchset{RG18 (GSCDB)} & \benchsize{18} & \benchdesc{Rare-gas complexes} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk2017}} \\
+\benchcat{} & \benchset{S22 (GSCDB)} & \benchsize{22} & \benchdesc{NCI dimers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,jurevcka2006benchmark}} \\
+\benchcat{} & \benchset{S66 (GSCDB)} & \benchsize{66} & \benchdesc{NCI dimers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Rezac2011_1}} \\
+\benchcat{} & \benchset{S66Rel7 (GSCDB)} & \benchsize{462} & \benchdesc{PECs for S66} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Rezac2011_1}} \\
+\benchcat{} & \benchset{Shields38 (GSCDB)} & \benchsize{38} & \benchdesc{Water clusters (H$_2$O)$_n$} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Temelso_2011}} \\
+\benchcat{} & \benchset{SW49Bind22 (GSCDB)} & \benchsize{22} & \benchdesc{SO$_4^{2-}$(H$_2$O)$_n$ binding} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Mardirossian_2013}} \\
+\benchcat{} & \benchset{SW49Rel28 (GSCDB)} & \benchsize{28} & \benchdesc{SO$_4^{2-}$(H$_2$O)$_n$ conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Mardirossian_2013}} \\
+\benchcat{} & \benchset{TA13 (GSCDB)} & \benchsize{13} & \benchdesc{Radical dimers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Tentscher_2013}} \\
+\benchcat{} & \benchset{WATER27 (GSCDB)} & \benchsize{27} & \benchdesc{Water clusters/ions} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,manna2017water27,Bryantsev_2009}} \\
+\benchcat{} & \benchset{X40 (GSCDB)} & \benchsize{40} & \benchdesc{Halogenated complexes} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Rezac2012}} \\
+\benchcat{} & \benchset{X40x5 (GSCDB)} & \benchsize{200} & \benchdesc{Halogen PECs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Rezac2012}} \\
+\benchcat{} & \benchset{XB20 (GSCDB)} & \benchsize{20} & \benchdesc{Halogen-bonded dimers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Kozuch_2013}} \\
+
+\benchcat{\textbf{Thermochemistry (GSCDB)}} & \benchset{AE11 (GSCDB)} & \benchsize{11} & \benchdesc{Atomic energies (Ar–Rn)} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,mccarthy2011accurate}} \\
+\benchcat{} & \benchset{AE18 (GSCDB)} & \benchsize{18} & \benchdesc{Atomic energies (H–Ar)} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Chakravorty_1993}} \\
+\benchcat{} & \benchset{AL2X6 (GSCDB)} & \benchsize{6} & \benchdesc{AlX$_3$ dimerisation} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,johnson2008delocalization}} \\
+\benchcat{} & \benchset{ALK8 (GSCDB)} & \benchsize{8} & \benchdesc{Alkaline reactions} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk2017}} \\
+\benchcat{} & \benchset{AlkAtom19 (GSCDB)} & \benchsize{19} & \benchdesc{Alkane atomisation} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Karton_2009}} \\
+\benchcat{} & \benchset{ALKBDE10 (GSCDB)} & \benchsize{10} & \benchdesc{Group 1/2 diatomic BDEs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Yu_2015Components}} \\
+\benchcat{} & \benchset{AlkIsod14 (GSCDB)} & \benchsize{14} & \benchdesc{Alkane isodesmic} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Karton_2009}} \\
+\benchcat{} & \benchset{BDE99MR (GSCDB)} & \benchsize{16} & \benchdesc{W4-11 MR BDEs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Chan2017}} \\
+\benchcat{} & \benchset{BDE99nonMR (GSCDB)} & \benchsize{83} & \benchdesc{W4-11 SR BDEs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Chan2017}} \\
+\benchcat{} & \benchset{BH76RC (GSCDB)} & \benchsize{30} & \benchdesc{BH76 reaction energies} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,zhao2005multi,zhao2005benchmark}} \\
+\benchcat{} & \benchset{BSR36 (GSCDB)} & \benchsize{36} & \benchdesc{Hydrocarbon bond separations} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Chan2016BSR,steinmann2009unified}} \\
+\benchcat{} & \benchset{CR20 (GSCDB)} & \benchsize{20} & \benchdesc{Cycloreversion energies} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,yu2016can}} \\
+\benchcat{} & \benchset{DARC (GSCDB)} & \benchsize{14} & \benchdesc{Diels–Alder energies} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,johnson2008delocalization}} \\
+\benchcat{} & \benchset{DC13 (GSCDB)} & \benchsize{13} & \benchdesc{Difficult cases} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk2017}} \\
+\benchcat{} & \benchset{DIPCS9 (GSCDB)} & \benchsize{9} & \benchdesc{Double ionisation potentials} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk2017}} \\
+\benchcat{} & \benchset{EA50 (GSCDB)} & \benchsize{50} & \benchdesc{Electron affinities} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Ermis2021}} \\
+\benchcat{} & \benchset{FH51 (GSCDB)} & \benchsize{51} & \benchdesc{Reaction energies} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Friedrich_2015,friedrich2013incremental}} \\
+\benchcat{} & \benchset{G21EA (GSCDB)} & \benchsize{25} & \benchdesc{Electron affinities} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Parthiban2001}} \\
+\benchcat{} & \benchset{G21IP (GSCDB)} & \benchsize{36} & \benchdesc{Ionisation potentials} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Parthiban2001}} \\
+\benchcat{} & \benchset{G2RC24 (GSCDB)} & \benchsize{24} & \benchdesc{G2/97 reaction energies} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,curtiss1991gaussian}} \\
+\benchcat{} & \benchset{HAT707MR (GSCDB)} & \benchsize{202} & \benchdesc{Heavy-atom transfer (MR)} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Karton2017HAT}} \\
+\benchcat{} & \benchset{HAT707nonMR (GSCDB)} & \benchsize{505} & \benchdesc{Heavy-atom transfer (SR)} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Karton2017HAT}} \\
+\benchcat{} & \benchset{HEAVYSB11 (GSCDB)} & \benchsize{11} & \benchdesc{Heavy-element dissociation} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk2017}} \\
+\benchcat{} & \benchset{HNBrBDE18 (GSCDB)} & \benchsize{18} & \benchdesc{N–Br BDEs} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Chan2018}} \\
+\benchcat{} & \benchset{IP23 (GSCDB)} & \benchsize{23} & \benchdesc{Vertical ionisation potentials} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Cheng2007}} \\
+\benchcat{} & \benchset{IP30 (GSCDB)} & \benchsize{30} & \benchdesc{Vertical ionisation potentials} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Luo2012}} \\
+\benchcat{} & \benchset{MB08-165 (GSCDB)} & \benchsize{165} & \benchdesc{Mindless molecules} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,korth2009mindless}} \\
+\benchcat{} & \benchset{MB16-43 (GSCDB)} & \benchsize{43} & \benchdesc{Mindless molecules} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk2017}} \\
+\benchcat{} & \benchset{MX34 (GSCDB)} & \benchsize{34} & \benchdesc{Ionic cluster atomisation} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Chan_2023}} \\
+\benchcat{} & \benchset{NBPRC (GSCDB)} & \benchsize{12} & \benchdesc{Oligomerisation/fragmentation} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,goerigk2010general,goerigk2011efficient}} \\
+\benchcat{} & \benchset{P34AE (GSCDB)} & \benchsize{44} & \benchdesc{P-block atomisation} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Chan_2021}} \\
+\benchcat{} & \benchset{P34EA (GSCDB)} & \benchsize{9} & \benchdesc{P-block electron affinities} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Chan_2021}} \\
+\benchcat{} & \benchset{P34IP (GSCDB)} & \benchsize{15} & \benchdesc{P-block ionisation potentials} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Chan_2021}} \\
+\benchcat{} & \benchset{PA26 (GSCDB)} & \benchsize{26} & \benchdesc{Proton affinities} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Goerigk2017}} \\
+\benchcat{} & \benchset{PlatonicRE18 (GSCDB)} & \benchsize{18} & \benchdesc{Platonic reaction energies} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Karton_2016Heats}} \\
+\benchcat{} & \benchset{PlatonicTAE6 (GSCDB)} & \benchsize{6} & \benchdesc{Platonic atomisation energies} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Karton_2016Heats}} \\
+\benchcat{} & \benchset{RC21 (GSCDB)} & \benchsize{21} & \benchdesc{Radical cation reactions} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,grimme2013towards}} \\
+\benchcat{} & \benchset{RSE43 (GSCDB)} & \benchsize{43} & \benchdesc{Radical stabilisation} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{Liang2025,Zhao2012RSE,neese2009assessment}} \\
+
+\benchcat{\textbf{Transition metals (GSCDB)}} & \benchset{3dTMV} & \benchsize{reported in Ref.~\cite{Neugebauer2023}} & \benchdesc{3d-metal vertical ionisation energies} & \benchref{ph-AFQMC} & \benchcite{\cite{Liang2025,Neugebauer2023}} \\
+\benchcat{} & \benchset{3d4dIPSS (GSCDB)} & \benchsize{32} & \benchdesc{TM ionisation potentials} & \benchref{CCSD(T)} & \benchcite{\cite{Liang2025,balabanov2006basis}} \\
+\benchcat{} & \benchset{CUAGAU83 (GSCDB)} & \benchsize{83} & \benchdesc{Coinage complexes} & \benchref{CCSD(T)} & \benchcite{\cite{Liang2025,Chan_2019}} \\
+\benchcat{} & \benchset{DAPD (GSCDB)} & \benchsize{12} & \benchdesc{Pd diatomics} & \benchref{CCSD(T)} & \benchcite{\cite{Liang2025,chan2023dapd}} \\
+\benchcat{} & \benchset{MME52 (GSCDB)} & \benchsize{52} & \benchdesc{Metalloenzymes} & \benchref{DLPNO-CCSD(T)} & \benchcite{\cite{Liang2025,Wappett2023,Rezac2011_1}} \\
+\benchcat{} & \benchset{MOBH28 (GSCDB)} & \benchsize{28} & \benchdesc{Organometallic barriers} & \benchref{CCSD(T)} & \benchcite{\cite{Liang2025,iron2019evaluating}} \\
+\benchcat{} & \benchset{ROST61 (GSCDB)} & \benchsize{61} & \benchdesc{Open-shell reactions} & \benchref{CCSD(T)} & \benchcite{\cite{Liang2025,Maurer_2021}} \\
+\benchcat{} & \benchset{TMD10 (GSCDB)} & \benchsize{10} & \benchdesc{TM diatomics} & \benchref{CCSD(T)} & \benchcite{\cite{Liang2025,chan2019assessment}} \\
+\benchcat{} & \benchset{MOR13 (GSCDB)} & \benchsize{13} & \benchdesc{Closed-shell TM reactions} & \benchref{CCSD(T)} & \benchcite{\cite{Liang2025,chan2019assessment}} \\
+\benchcat{} & \benchset{TMB11 (GSCDB)} & \benchsize{11} & \benchdesc{TM barriers} & \benchref{CCSD(T)} & \benchcite{\cite{Liang2025,chan2019assessment}} \\
+
+\benchcat{\textbf{Conformers (external)}} & \benchset{37CONF8} & \benchsize{296} & \benchdesc{Small organic conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{sharapa2019robust}} \\
+\benchcat{} & \benchset{ACONFL} & \benchsize{reported in Ref.~\cite{ehlert2022conformational}} & \benchdesc{n-alkane conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{ehlert2022conformational,werner2023accurate}} \\
+\benchcat{} & \benchset{DipConfS} & \benchsize{reported in Ref.~\cite{plett2024toward}} & \benchdesc{Amino-acid and dipeptide conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{plett2024toward}} \\
+\benchcat{} & \benchset{Maltose222} & \benchsize{222} & \benchdesc{Carbohydrate conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{marianski2016assessing}} \\
+\benchcat{} & \benchset{MPCONF196} & \benchsize{196} & \benchdesc{Medicinal-chemistry conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{rezac2018mpconf196,plett2023mpconf196water}} \\
+\benchcat{} & \benchset{OpenFF-Tors} & \benchsize{reported in Ref.~\cite{behara2024openff}} & \benchdesc{Drug-like torsional profiles} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{behara2024openff}} \\
+\benchcat{} & \benchset{UPU46} & \benchsize{46} & \benchdesc{RNA backbone conformers} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{kruse2015quantum}} \\
+
+\benchcat{\textbf{Non-covalent interactions}} & \benchset{S30L} & \benchsize{30} & \benchdesc{Host–guest supramolecular} & \benchref{DLPNO-CCSD(T)} & \benchcite{\cite{Sure2015}} \\
+\benchcat{} & \benchset{IHB100x10} & \benchsize{1000} & \benchdesc{Ionic hydrogen-bond dissociation curves (NCI Atlas)} & \benchref{CCSD(T)/CBS} & \benchcite{\cite{ez2020-1}} \\
+\benchcat{} & \benchset{PLA15} & \benchsize{15} & \benchdesc{Protein active sites} & \benchref{MP2-F12 + DLPNO-CCSD(T)} & \benchcite{\cite{kriz2020benchmarking}} \\
+\benchcat{} & \benchset{PLF547} & \benchsize{547} & \benchdesc{Protein–fragment interactions} & \benchref{MP2-F12/cc-pVDZ-F12 + DLPNO-CCSD(T)} & \benchcite{\cite{kriz2020benchmarking}} \\
+\benchcat{} & \benchset{QUID} & \benchsize{170} & \benchdesc{Protein-pocket dimers} & \benchref{LNO-CCSD(T)} & \benchcite{\cite{puleva2025quid}} \\
+\benchcat{} & \benchset{Alkali-halide PECs (LiCl/NaCl/KBr)} & \benchsize{3 PECs} & \benchdesc{Dissociation curves} & \benchref{DFT ($\omega$B97M-V)} & \benchcite{This work} \\
+\benchcat{\textbf{Molecular Crystals}} & \benchset{X23-DMC} & \benchsize{23} & \benchdesc{Molecular crystal lattice energies} & \benchref{DMC} & \benchcite{\cite{DellaPia2024}} \\
+\benchcat{} & \benchset{CPOSS209} & \benchsize{209} & \benchdesc{Molecular crystal lattice energies} & \benchref{\wb + 1-body CCSD(T) correction} & \benchcite{\cite{cposs209}, This work} \\
+\benchcat{\textbf{Liquids \& Water}} & \benchset{Water density/RDF} & \benchsize{333} & \benchdesc{Liquid water (NPT MD)} & \benchref{Experiment targets} & \benchcite{\cite{soper_radial_2013}} \\
+\benchcat{} & \benchset{Organic liquids densities} & \benchsize{62} & \benchdesc{Experimental densities (NPT MD)} & \benchref{Experiment targets} & \benchcite{\cite{Weber2025MPNICE}} \\
+\benchcat{\textbf{Solvation / Redox}} & \benchset{Fe/Cl aqueous redox clusters} & \benchsize{traj. (ps)} & \benchdesc{Solvated Fe/Cl chlorides} & \benchref{DFT} & \benchcite{\cite{kocer2024machinelearningpotentialsredox}} \\
+\benchcat{} & \benchset{Solvated Cl$_2$/Cl$^-$ dissociation} & \benchsize{traj. (ps)} & \benchdesc{Charge-localisation test in water clusters} & \benchref{DFT ($\omega$B97M-V)} & \benchcite{This work} \\
+\benchcat{} & \benchset{Water-cluster dissociation (charge transfer)} & \benchsize{scan of separations} & \benchdesc{Fragment-charge localisation during dissociation} & \benchref{DFT ($\omega$B97M-V)} & \benchcite{This work} \\
+\benchcat{} & \benchset{Hydrated TM ionisation (M-W6/M-W18)} & \benchsize{14} & \benchdesc{TM ionisation in water} & \benchref{DLPNO-CCSD(T)} & \benchcite{\cite{bhattacharjee2022dlpno}} \\
+\benchcat{} & \benchset{Redox Potentials in solution} & \benchsize{traj. (ps)} & \benchdesc{Solvated Fe/Co chlorides} & \benchref{DFT} & \benchcite{\cite{kocer2024machinelearningpotentialsredox}} \\
+\benchcat{\textbf{Lanthanides}} & \benchset{Lanthanide isomers} & \benchsize{18} & \benchdesc{Lanthanide complex isomers} & \benchref{r2SCAN-3c} & \benchcite{\cite{Rose2024}} \\
+\end{longtable*}
