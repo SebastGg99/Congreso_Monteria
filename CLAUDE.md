@@ -28,14 +28,15 @@ cinético*. Asesores: Olga Lucía López Acevedo y Hernán David Salinas Jiméne
 - **Referente estético:** `baseline/slides.tex` (journal alert previo del
   usuario; sus figuras están en `baseline/references/modern_kMC/images/`).
 - **No modificar `baseline/`.** Es material de referencia.
-- **Versionado:** cada iteración vive en `slides/vN/` autocontenida
-  (`slides.tex` + `figures/`). Para iterar, copiar `vN` a `vN+1` y editar la copia.
+- **Versionado:** cada iteración vive en `slides/vN/slides.tex`. Las figuras son
+  **compartidas** en `slides/figures/` (desde v4, `\graphicspath{{../figures/}}`);
+  las figuras nuevas se añaden ahí. Para iterar, copiar `vN` a `vN+1` y editar la copia.
 - Idioma de las slides y de la comunicación con el usuario: español.
 
 ## Compilar y revisar
 
 ```bash
-cd slides/v1
+cd slides/v4
 tectonic slides.tex            # o pdflatex slides.tex (dos veces)
 python3 ../../.claude/skills/slides-fisica/scripts/hoja_contactos.py slides.pdf /tmp/hoja.png 3
 ```
@@ -47,7 +48,8 @@ está disponible para renderizar páginas.
 Detalle práctico: los PNG de `results/` de la tesis están a 120 dpi
 (1 px = 0.6 bp); tenerlo en cuenta al usar `trim` en `\includegraphics`.
 
-## Pendientes conocidos (v1)
+## Pendientes conocidos (v4)
 
-- Nombre oficial del congreso y fecha en la portada (`% TODO` en `slides/v1/slides.tex`).
-- Duración de la charla sin definir: v1 tiene 26 slides; recortar según el tiempo asignado.
+- Fecha en la portada (el nombre del congreso ya está; `% TODO` en la portada).
+- Charla de **15 minutos**: v4 tiene 16 slides principales + 6 de respaldo tras
+  `\appendix` (`appendixnumberbeamer`, numeración aparte).
