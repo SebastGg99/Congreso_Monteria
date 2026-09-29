@@ -177,8 +177,8 @@
     \end{column}
     \begin{column}{0.485\textwidth}
       \begin{block}{Objetivo general}
-        \small Diseñar, implementar y validar computacionalmente un modelo kMC,
-        en versiones \textbf{2D} y \textbf{3D}, que reproduzca la cinética y morfología
+        \small Diseñar, implementar y validar computacionalmente un modelo kMC
+        \textbf{3D} (SOS), que reproduzca la cinética y morfología
         del crecimiento de cristales de hemozoína.
       \end{block}
     \end{column}
@@ -191,7 +191,7 @@
     \node[s,right=of a] (b) {Eventos y tasas kMC};
     \node[s,right=of b] (c) {Parámetros\\ {\scriptsize Bayes + MACE}};
     \node[s,right=of c] (d) {Validación\\ {\scriptsize lisozima}};
-    \node[s,right=of d,fill=azul,text=white] (e) {Conversión y morfología\\ {\scriptsize 2D / 3D}};
+    \node[s,right=of d,fill=azul,text=white] (e) {Conversión y morfología\\ {\scriptsize kMC 3D}};
     \foreach \i/\j in {a/b,b/c,c/d,d/e} \draw[paso] (\i) -- (\j);
   \end{tikzpicture}
 \end{frame}
@@ -387,7 +387,7 @@
 \end{frame}
 
 % ---------------------------------------------------------------- 9
-\begin{frame}{Dos modelos kMC sobre red}
+\begin{frame}{Modelo kMC 3D sobre red}
   \framesubtitle{Red de $80\times80$ sitios de adsorción, vista desde arriba.}
   \vspace{-0.3em}
   \begin{columns}[T,onlytextwidth]
@@ -448,52 +448,16 @@
     \end{column}
   \end{columns}
   \vspace{0.5em}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.485\textwidth}
-      \begin{block}{Modelo 2D simple}
-        \footnotesize Ocupación de sitios; energías base $E_0^{\{j\}}$ e interacciones
-        laterales $J^{\{j\}}$ entre UC vecinas\\
-        Implementación inicial del algoritmo BKL
-      \end{block}
-    \end{column}
-    \begin{column}{0.485\textwidth}
-      \begin{block}{Modelo 3D adaptativo}
+  \begin{center}
+    \begin{minipage}{0.80\textwidth}
+      \begin{block}{Modelo 3D adaptativo (\textit{solid-on-solid})}
         \footnotesize Adaptación de Nagpal \emph{et al.} (2024): adsorción dependiente de $\sigma$\\
         Aquí: \textbf{anisotropía} $E_{pb_x}\neq E_{pb_y}$ $+$ evento de \textbf{incorporación}
       \end{block}
-    \end{column}
-  \end{columns}
+    \end{minipage}
+  \end{center}
   \vspace{0.3em}
   \centering{\small Eventos: \textbf{adsorción} · \textbf{desorción} · \textbf{migración} · \textbf{incorporación}}
-\end{frame}
-
-% ---------------------------------------------------------------- 10
-\begin{frame}{Modelo 2D: tasas de transición}
-  \framesubtitle{$n$ = número de vecinos ocupados de la unidad de crecimiento.}
-  \begin{columns}[c,onlytextwidth]
-    \begin{column}{0.60\textwidth}
-      \small
-      \begin{align}
-        k_{ads}  &= K_0\exp\!\left(-\frac{E_0^{ads}-\Delta\mu}{\kB T}\right) a_{hemin} \tag{12}\\[0.2em]
-        k_{des}  &= K_0\exp\!\left(-\frac{E_0^{des}+nJ^{des}}{\kB T}\right) \tag{13}\\[0.2em]
-        k_{diff} &= K_0\exp\!\left(-\frac{E_0^{diff}+nJ^{diff}}{\kB T}\right) \tag{14}\\[0.2em]
-        k_{inc}  &= K_0\exp\!\left(-\frac{E_0^{inc}+nJ^{inc}}{\kB T}\right) \tag{15}
-      \end{align}
-    \end{column}
-    \begin{column}{0.37\textwidth}
-      \small
-      \begin{itemize}\setlength{\itemsep}{0.35em}
-        \item $\Delta\mu$: potencial químico de la reacción
-        \item $a_{hemin}$: actividad de las UC en solución
-        \item $E_0^{\{j\}}$: energía base del evento $j$
-        \item $nJ^{\{j\}}$: penalización lateral por vecinos
-      \end{itemize}
-      \vspace{0.3em}
-      \begin{block}{Incorporación}
-        \footnotesize La UC queda totalmente atada a la red y no participa en otros eventos
-      \end{block}
-    \end{column}
-  \end{columns}
 \end{frame}
 
 % ---------------------------------------------------------------- 11
@@ -539,8 +503,8 @@
   \begin{columns}[c,onlytextwidth]
     \begin{column}{0.52\textwidth}
       \begin{align}
-        \Delta\mu &= \kB T\ln\frac{C}{C_{eq}} = \kB T\ln(\sigma+1) \tag{16}\\[0.4em]
-        \Delta G  &= -N\Delta\mu + \gamma_{edge}A \tag{17}
+        \Delta\mu &= \kB T\ln\frac{C}{C_{eq}} = \kB T\ln(\sigma+1) \tag{12}\\[0.4em]
+        \Delta G  &= -N\Delta\mu + \gamma_{edge}A \tag{13}
       \end{align}
       \vspace{0.2em}
       {\footnotesize $C$: concentración de UC en solución; \ $C_{eq}$: saturación}\\[0.3em]
@@ -549,7 +513,7 @@
     \begin{column}{0.45\textwidth}
       \begin{block}{Energía libre por UC adsorbida}
         \begin{equation}
-          \Delta G_{UC} = -\Delta\mu + \gamma_{edge}A_{UC} \tag{18}
+          \Delta G_{UC} = -\Delta\mu + \gamma_{edge}A_{UC} \tag{14}
         \end{equation}
         \[
           A_{UC} = n\,A_f
@@ -569,14 +533,14 @@
     \begin{column}{0.62\textwidth}
       \begin{block}{}
         \begin{equation}
-          k_{a_n} = K_0^{+}\exp\!\left(\frac{\Delta\mu}{\kB T} + n_x\frac{\delta_x}{\Delta\mu} + n_y\frac{\delta_y}{\Delta\mu}\right) \tag{19}
+          k_{a_n} = K_0^{+}\exp\!\left(\frac{\Delta\mu}{\kB T} + n_x\frac{\delta_x}{\Delta\mu} + n_y\frac{\delta_y}{\Delta\mu}\right) \tag{15}
         \end{equation}
       \end{block}
       {\footnotesize $\Delta\mu$ baja: $n\,\delta/\Delta\mu$ grande $\Rightarrow$ ganan los sitios con más vecinos\\
        $\Delta\mu$ alta: el efecto de $n$ se diluye $\Rightarrow$ adsorción en cualquier sitio (rugoso)}\\[0.3em]
       \small
       \begin{equation}
-        k_{d_n} = K_0^{+}\exp\!\left(\frac{\phi}{\kB T} - n_x\frac{E_{pb_x}}{\kB T} - n_y\frac{E_{pb_y}}{\kB T}\right) \tag{20}
+        k_{d_n} = K_0^{+}\exp\!\left(\frac{\phi}{\kB T} - n_x\frac{E_{pb_x}}{\kB T} - n_y\frac{E_{pb_y}}{\kB T}\right) \tag{16}
       \end{equation}
       {\footnotesize $\phi$: energía de enlace por UC en la red llena;\ $E_{pb}$: energía por enlace;\ $n_x,n_y\in\{0,1,2\}$}
     \end{column}
@@ -596,13 +560,13 @@
     \begin{column}{0.66\textwidth}
       \small
       \begin{align}
-        k_{m_n} &= K_0^{+}\exp\!\left(\frac{\phi}{\kB T} + \frac{E_{pb_x}+E_{pb_y}}{2\kB T} - n_x\frac{E_{pb_x}}{\kB T} - n_y\frac{E_{pb_y}}{\kB T}\right) \tag{21}\\[0.3em]
-        k_{i_n} &= K_{inc}^{+}\exp\!\left(n_x\frac{E_{pb_x}}{\kB T} + n_y\frac{E_{pb_y}}{\kB T}\right) \tag{22}\\[0.3em]
-        W_j &= \sum_{n} M_n\,k_{j_n}, \qquad j\in\{a,d,m,i\} \tag{23}
+        k_{m_n} &= K_0^{+}\exp\!\left(\frac{\phi}{\kB T} + \frac{E_{pb_x}+E_{pb_y}}{2\kB T} - n_x\frac{E_{pb_x}}{\kB T} - n_y\frac{E_{pb_y}}{\kB T}\right) \tag{17}\\[0.3em]
+        k_{i_n} &= K_{inc}^{+}\exp\!\left(n_x\frac{E_{pb_x}}{\kB T} + n_y\frac{E_{pb_y}}{\kB T}\right) \tag{18}\\[0.3em]
+        W_j &= \sum_{n} M_n\,k_{j_n}, \qquad j\in\{a,d,m,i\} \tag{19}
       \end{align}
       \begin{block}{}
         \begin{equation}
-          W_{tot} = W_a + W_d + W_m + W_i \tag{24}
+          W_{tot} = W_a + W_d + W_m + W_i \tag{20}
         \end{equation}
       \end{block}
       {\footnotesize $M_n$: número de sitios con $n$ vecinos (la migración excluye $n=4$)}
@@ -729,8 +693,8 @@
       \fig{Fig.~9. Oxígenos externos saturados con H: evita el colapso de los carboxilos en vacío.}\\[0.5em]
       \small
       \begin{align}
-        E_{\mu\text{-Pr}} &= E_{\text{dim}} + E_{\text{H}_2} - 2E_{\text{UC}} \tag{25}\\
-        E_{pb} &= E_{\text{dim}} - 2E_{\text{UC}} \tag{26}
+        E_{\mu\text{-Pr}} &= E_{\text{dim}} + E_{\text{H}_2} - 2E_{\text{UC}} \tag{21}\\
+        E_{pb} &= E_{\text{dim}} - 2E_{\text{UC}} \tag{22}
       \end{align}
     \end{column}
     \begin{column}{0.47\textwidth}
@@ -780,18 +744,12 @@
 % ---------------------------------------------------------------- 20
 \begin{frame}{Resultados: cinética de conversión a $\beta$-hematina}
   \begin{columns}[c,onlytextwidth]
-    \begin{column}{0.385\textwidth}
+    \begin{column}{0.60\textwidth}
       \centering
-      \includegraphics[width=\linewidth]{2d_conv.png}\\
-      {\color{azul}\bfseries\small Modelo 2D}
+      \includegraphics[height=0.72\textheight]{3d_conv.png}
     \end{column}
-    \begin{column}{0.385\textwidth}
-      \centering
-      \includegraphics[width=\linewidth]{3d_conv.png}\\
-      {\color{azul}\bfseries\small Modelo 3D}
-    \end{column}
-    \begin{column}{0.22\textwidth}
-      \scriptsize
+    \begin{column}{0.36\textwidth}
+      \small
       \renewcommand{\arraystretch}{1.25}\setlength{\tabcolsep}{3pt}
       \begin{tabular}{@{}lcc@{}}
         \toprule
@@ -801,7 +759,6 @@
         2.º orden    & 0.995 & 2.28 \\
         Avrami       & 0.989 & 3.60 \\
         \midrule
-        \textbf{kMC 2D} & \textbf{0.991} & \textbf{2.10} \\
         \textbf{kMC 3D} & \textbf{0.971} & \textbf{4.69} \\
         \bottomrule
       \end{tabular}\\[0.6em]
@@ -811,33 +768,6 @@
   \end{columns}
   \vspace{0.4em}
   \fig{Fig.~12. Conversión (\%) vs.\ tiempo: kMC, modelos cinéticos (ecs.~3--5) y datos experimentales.}
-\end{frame}
-
-% ---------------------------------------------------------------- 21
-\begin{frame}{Resultados: morfología en el modelo 2D}
-  \framesubtitle{El modelo 2D reproduce la cinética, pero no la morfología superficial $\Rightarrow$ se necesita el 3D.}
-  \begin{columns}[c,onlytextwidth]
-    \begin{column}{0.64\textwidth}
-      \centering
-      \setlength{\tabcolsep}{1pt}
-      \begin{tabular}{ccc}
-        \includegraphics[width=0.32\linewidth]{2d_1_snap.png} &
-        \includegraphics[width=0.32\linewidth]{2d_2_snap.png} &
-        \includegraphics[width=0.32\linewidth]{2d_3_snap.png} \\
-        \includegraphics[width=0.32\linewidth]{2d_4_snap.png} &
-        \includegraphics[width=0.32\linewidth]{2d_5_snap.png} &
-        \includegraphics[width=0.32\linewidth]{2d_6_snap.png}
-      \end{tabular}\\
-      \fig{Fig.~13. Snapshots del modelo 2D en $t = 0,\,10,\,50,\,100,\,150,\,240$ min.}
-    \end{column}
-    \begin{column}{0.34\textwidth}
-      \begin{block}{Limitación geométrica}
-        \small Solo ocupación de sitios: no hay alturas, escalones ni islas apiladas
-      \end{block}
-      \vspace{0.4em}
-      {\small Útil como primer paso para implementar el algoritmo BKL}
-    \end{column}
-  \end{columns}
 \end{frame}
 
 % ---------------------------------------------------------------- 22
@@ -853,7 +783,7 @@
         {\scriptsize $\sigma=1.5$}  & \snap{0.215\textheight}{iso_d_1.png}   & \snap{0.215\textheight}{iso_d_2.png} & \snap{0.215\textheight}{iso_d_3.png} \\
         {\scriptsize $\sigma=2.7$}  & \snap{0.215\textheight}{iso_e_1.png}   & \snap{0.215\textheight}{iso_e_2.png} & \snap{0.215\textheight}{iso_e_3.png}
       \end{tabular}\\[0.1em]
-      \fig{Fig.~14. Snapshots del modelo 3D isotrópico (red $80\times80$).}
+      \fig{Fig.~13. Snapshots del modelo 3D isotrópico (red $80\times80$).}
     \end{column}
     \begin{column}{0.28\textwidth}
       \centering\scriptsize
@@ -889,7 +819,7 @@
         {\scriptsize $\sigma=1.5$}  & \snap{0.215\textheight}{aniso_d_2.png} & \snap{0.215\textheight}{aniso_d_1.png} & \snap{0.215\textheight}{aniso_d_3.png} \\
         {\scriptsize $\sigma=2.7$}  & \snap{0.215\textheight}{aniso_e_1.png} & \snap{0.215\textheight}{aniso_e_2.png} & \snap{0.215\textheight}{aniso_e_3.png}
       \end{tabular}\\[0.1em]
-      \fig{Fig.~15. Snapshots del modelo 3D anisotrópico (red $80\times80$).}
+      \fig{Fig.~14. Snapshots del modelo 3D anisotrópico (red $80\times80$).}
     \end{column}
     \begin{column}{0.28\textwidth}
       \centering
@@ -911,7 +841,7 @@
     \begin{column}{0.50\textwidth}
       \centering
       \includegraphics[width=\linewidth]{morfo_compara.png}\\
-      \fig{Fig.~16. AFM en modo de fase a distintas sobresaturaciones (Olafson \emph{et al.}, 2017).}
+      \fig{Fig.~15. AFM en modo de fase a distintas sobresaturaciones (Olafson \emph{et al.}, 2017).}
     \end{column}
     \begin{column}{0.48\textwidth}
       \centering
@@ -922,7 +852,7 @@
         \snap{0.17\textheight}{aniso_e_3.png} \\
         {\scriptsize $\sigma=0.38$} & {\scriptsize $\sigma=1.5$} & {\scriptsize $\sigma=2.7$}
       \end{tabular}\\
-      \fig{Fig.~17. kMC 3D anisotrópico, $t=240$ min.}\\[0.5em]
+      \fig{Fig.~16. kMC 3D anisotrópico, $t=240$ min.}\\[0.5em]
       \begin{block}{\centering Misma fuerza impulsora}
         \centering\small
         $\Delta\mu/\kB T = \ln(1+\sigma) \approx 0.32,\ 0.92,\ 1.31$\\
@@ -938,15 +868,14 @@
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.56\textwidth}
       \begin{itemize}\setlength{\itemsep}{0.7em}
-        \item \textbf{Modelo 2D}: reproduce la cinética de conversión ($R^2=0.991$), pero no la morfología superficial
-        \item \textbf{Modelo 3D}: reproduce la cinética ($R^2=0.971$) y, cualitativamente, la morfología
+        \item \textbf{Modelo kMC 3D}: reproduce la cinética de conversión ($R^2=0.971$) y, cualitativamente, la morfología superficial
         \item Transición de régimen con $\sigma$: islas lisas $\to$ superficie \textbf{rugosa}, en las versiones isotrópica y anisotrópica
         \item Energías de enlace \textbf{MACE} por dirección integradas al kMC anisotrópico
       \end{itemize}
     \end{column}
     \begin{column}{0.40\textwidth}
       \begin{block}{Limitaciones}
-        \small Morfología evaluada de forma cualitativa; ajuste 3D menos preciso que el 2D
+        \small Morfología evaluada de forma cualitativa; ajuste cinético algo menos preciso que los modelos fenomenológicos
       \end{block}
       \vspace{0.4em}
       \begin{block}{Perspectivas}
