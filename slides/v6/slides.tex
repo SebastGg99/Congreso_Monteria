@@ -171,21 +171,21 @@
 \end{frame}
 
 % ---------------------------------------------------------------- 2: Contexto
-\begin{frame}{La malaria: un problema vigente}{Para sobrevivir, el parásito cristaliza el hemo tóxico en hemozoína: un blanco farmacológico.}
+\begin{frame}{La malaria: un problema vigente}{El parásito cristaliza el hemo tóxico en hemozoína: un blanco farmacológico.}
   \begin{columns}[c,onlytextwidth]
     \begin{column}{0.52\textwidth}
       \centering
-      \renewcommand{\arraystretch}{1.25}
+      \renewcommand{\arraystretch}{1.35}
       \begin{tabular}{@{}r@{\hspace{0.5em}}l@{}}
-        {\Large\bfseries\color{azul}282\,M} & casos de malaria (2024) \\
+        {\Large\bfseries\color{azul}282\,M} & casos (2024) \\
         {\Large\bfseries\color{azul}610\,000} & muertes, 80 países endémicos \\
         {\Large\bfseries\color{acento}$\sim$95\,\%} & de las muertes: \textit{P.~falciparum} \\
-      \end{tabular}\\[0.4em]
+      \end{tabular}\\[0.6em]
       \begin{block}{Resistencia farmacológica}
-        \scriptsize Resistencia parcial a derivados de \textbf{artemisinina}
-        (Gran Mekong y África) $\Rightarrow$ urge entender los mecanismos de supervivencia del parásito.
+        \footnotesize Parcial a derivados de \textbf{artemisinina} (Gran Mekong, África)\\
+        $\Rightarrow$ urge entender cómo sobrevive el parásito
       \end{block}
-      \fig{World Health Organization, \textit{World malaria report} (2025).}
+      \fig{WHO, \textit{World malaria report} (2025).}
     \end{column}
     \begin{column}{0.46\textwidth}
       \centering
@@ -209,17 +209,16 @@
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.485\textwidth}
       \begin{block}{Hipótesis}
-        \small Desde la física estadística se puede implementar un modelo de
-        \textbf{Monte Carlo cinético} (kMC) que reproduzca la \textbf{cinética} y la
-        \textbf{morfología superficial} del crecimiento de cristales de hemozoína
-        ($\beta$-hematina).
+        \small Un modelo de \textbf{Monte Carlo cinético} (kMC), desde la física
+        estadística, reproduce la \textbf{cinética} y la \textbf{morfología superficial}
+        del crecimiento de hemozoína ($\beta$-hematina).
       \end{block}
     \end{column}
     \begin{column}{0.485\textwidth}
       \begin{block}{Objetivo general}
-        \small Diseñar, implementar y validar computacionalmente un modelo kMC
-        \textbf{3D} (SOS), que reproduzca la cinética y morfología
-        del crecimiento de cristales de hemozoína.
+        \small Diseñar, implementar y validar computacionalmente un modelo
+        kMC \textbf{3D} (SOS) de la cinética y la morfología del crecimiento
+        de hemozoína.
       \end{block}
     \end{column}
   \end{columns}
@@ -284,17 +283,15 @@
 %  DIAPOSITIVA 1: Unidades de Crecimiento (GU)
 % =====================================================================
 \begin{frame}{Modelos de la Unidad de Crecimiento (GU)}
-  \framesubtitle{Comparación entre los dos candidatos a bloque fundamental de ensamblaje.}
+  \framesubtitle{Dos candidatos a bloque fundamental de ensamblaje.}
   \begin{columns}[c,onlytextwidth]
     % ---- GU mu-Pr ----
     \begin{column}{0.47\textwidth}
       \centering
-      % Ajusta la ruta a "imagenes/GU_mPr.png" o "GU_mPr.png" según tu estructura
       \includegraphics[height=0.55\textheight,keepaspectratio]{GU_mPr.png}\\[0.5em]
       {\color{azul}\bfseries\small (a) Enlaces $\mu$-propionato ($\mu$-Pr)}\\[0.2em]
-      {\footnotesize Coordinación Fe--carboxilato entre dímeros. \\
-      {\scriptsize\color{gris}Pagola \emph{et al.} (2000); Becker \emph{et al.} (2016)}}
-      
+      {\footnotesize Coordinación Fe--carboxilato entre dímeros}\\
+      {\scriptsize\color{gris}Pagola \emph{et al.} (2000); Becker \emph{et al.} (2016)}
     \end{column}
 
     % ---- GU pi-pi ----
@@ -302,8 +299,8 @@
       \centering
       \includegraphics[height=0.55\textheight,keepaspectratio]{GU_pp.png}\\[0.5em]
       {\color{azul}\bfseries\small (b) Interacción $\pi$--$\pi$}\\[0.2em]
-      {\footnotesize Más estable en medio acuoso
-      {\scriptsize\color{gris}Klonis \emph{et al.} (2010); Ma \emph{et al.} (2025)}}
+      {\footnotesize Más estable en medio acuoso}\\
+      {\scriptsize\color{gris}Klonis \emph{et al.} (2010); Ma \emph{et al.} (2025)}
     \end{column}
   \end{columns}
 \end{frame}
@@ -314,30 +311,27 @@
 \begin{frame}{Formación clásica de los cristales de hemozoína}
   \begin{columns}[c,onlytextwidth]
     % Figura del ensamblaje
-    \begin{column}{0.5\textwidth}
+    \begin{column}{0.42\textwidth}
       \centering
-      \includegraphics[width=\linewidth,height=0.70\textheight,keepaspectratio]{laywe.png}\\[0.4em]
-      \fig{.}
+      \includegraphics[width=\linewidth,height=0.74\textheight,keepaspectratio]{laywe.png}
+      % TODO: pie de figura (antes había un \fig{.} vacío)
     \end{column}
 
     % Explicación / Tabla por etapas
-    \begin{column}{0.45\textwidth}
+    \begin{column}{0.56\textwidth}
       \centering
       \small
-      \renewcommand{\arraystretch}{1.25}
-      \begin{tabular}{@{}l>{\raggedright\arraybackslash}p{0.52\linewidth}@{}}
+      \renewcommand{\arraystretch}{1.5}\setlength{\tabcolsep}{4pt}
+      \begin{tabular}{@{}l>{\raggedright\arraybackslash}p{4.85cm}@{}}
         \toprule
         Etapa & Interacción determinante \\
         \midrule
-        \textbf{Nucleación} & Formación de dímeros $\pi$--$\pi$ \\
-        \textbf{1D (Columnas)} & Apilamiento direccional \textbf{tipo P} \\
-        \textbf{2D (Láminas)}  & Enlaces de coordinación \textbf{$\mu$-Pr} \\
-        \textbf{3D (Cristal)}  & van der Waals + \textbf{puentes de H} \\
+        \textbf{Nucleación}    & dímeros $\pi$--$\pi$ \\
+        \textbf{1D} (columnas) & apilamiento direccional \textbf{tipo P} \\
+        \textbf{2D} (láminas)  & coordinación \textbf{$\mu$-Pr} \\
+        \textbf{3D} (cristal)  & van der Waals $+$ \textbf{puentes de H} \\
         \bottomrule
       \end{tabular}
-
-      \vspace{1.5cm}
-      
     \end{column}
   \end{columns}
 \end{frame}
@@ -375,18 +369,22 @@
 \begin{frame}{Escala atómica: potencial MACE-POLAR}
   \framesubtitle{MLIP: precisión cercana a DFT ($\mathcal{O}(N^3)$) con escalamiento lineal $\mathcal{O}(N)$.}
   \begin{columns}[c,onlytextwidth]
-    \begin{column}{0.46\textwidth}
+    \begin{column}{0.43\textwidth}
       \centering
-      \includegraphics[height=0.55\textheight]{mace_polar_arq.png}\\
+      \includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{mace_polar_arq.png}\\
       \fig{Fig.~2. MACE-POLAR-1 (Batatia \emph{et al.}, 2026).}
     \end{column}
-    \begin{column}{0.51\textwidth}
+    \begin{column}{0.54\textwidth}
       \small
-      \begin{itemize}\setlength{\itemsep}{0.6em}
-        \item \textbf{MACE}: red neuronal de paso de mensajes \textbf{equivariante} (armónicos esféricos, muchos cuerpos) $\Rightarrow E_{\text{local}}$
-        \item \textbf{POLAR}: multipolos de espín-carga $\to$ Poisson global $\rho(\mathbf r)\to v(\mathbf r)$ $\Rightarrow E_{\text{elec}} + E_{\text{no-local}}$
-        \item Entrenado en \textbf{OMol25} ($\omega$B97M-V): electrostática de largo alcance
-        \item UC $\pi$--$\pi$: \textbf{148 átomos}; relajación de celda y posiciones con ASE (L-BFGS)
+      \begin{itemize}\setlength{\itemsep}{0.5em}
+        \item \textbf{MACE}: paso de mensajes \textbf{equivariante}\\
+              {\footnotesize armónicos esféricos, muchos cuerpos} $\Rightarrow E_{\text{local}}$
+        \item \textbf{POLAR}: multipolos espín-carga\\
+              {\footnotesize Poisson global $\rho(\mathbf r)\to v(\mathbf r)$} $\Rightarrow E_{\text{elec}} + E_{\text{no-local}}$
+        \item Datos: \textbf{OMol25} ($\omega$B97M-V)\\
+              {\footnotesize electrostática de largo alcance}
+        \item UC $\pi$--$\pi$: \textbf{148 átomos}\\
+              {\footnotesize relajación de celda y posiciones (ASE, L-BFGS)}
       \end{itemize}
     \end{column}
   \end{columns}
@@ -397,8 +395,9 @@
   \begin{columns}[c,onlytextwidth]
     \begin{column}{0.50\textwidth}
       \centering
-      \includegraphics[width=\linewidth,height=0.40\textheight,keepaspectratio]{H_extra_c.png}\\
-      \fig{Fig.~3. Oxígenos externos saturados con H: evita el colapso de los carboxilos en vacío.}\\[0.4em]
+      \includegraphics[width=\linewidth,height=0.38\textheight,keepaspectratio]{H_extra_c.png}\\
+      \fig{Fig.~3. O externos saturados con H (evita el colapso de los carboxilos en vacío).
+      Relajación L-BFGS en dos etapas: H añadidos $\to$ todos los átomos.}\\[0.2em]
       \small
       \begin{align}
         E_{\mu\text{-Pr}} &= E_{\text{dim}} + E_{\text{H}_2} - 2E_{\text{UC}} \tag{1}\\
@@ -407,7 +406,7 @@
     \end{column}
     \begin{column}{0.47\textwidth}
       \centering\small
-      \renewcommand{\arraystretch}{1.2}
+      \renewcommand{\arraystretch}{1.3}
       \begin{tabular}{@{}lc@{}}
         \toprule
         Dirección & $E_{pb}$ (eV) \\
@@ -418,12 +417,11 @@
         \midrule
         Promedio total        & $-1.2341$ \\
         \bottomrule
-      \end{tabular}\\[0.6em]
+      \end{tabular}\\[0.9em]
       \begin{block}{\centering Entrada del kMC anisotrópico}
         \centering
         $E_{pb_x}\leftarrow\mu$-Pr \qquad $E_{pb_y}\leftarrow$ P--P
       \end{block}
-      {\footnotesize Relajación en vacío en dos etapas (L-BFGS): solo H añadidos $\to$ todos los átomos}
     \end{column}
   \end{columns}
 \end{frame}
@@ -476,14 +474,14 @@
 
 % ---------------------------------------------------------------- 8: Nucleación 2D
 \begin{frame}{Nucleación 2D y regímenes de crecimiento superficial}
-  \framesubtitle{La sobresaturación $\sigma$ controla el mecanismo de crecimiento de la cara cristalina.}
+  \framesubtitle{$\sigma\uparrow\ \Rightarrow\ \Delta\mu\uparrow$:\ espiral $\to$ escalón (nucleación 2D) $\to$ rugoso.}
   \begin{columns}[c,onlytextwidth]
-    \begin{column}{0.46\textwidth}
+    \begin{column}{0.44\textwidth}
       \centering
       \includegraphics[width=0.62\linewidth]{growth_regimes.png}\\
-      \fig{Fig.~4. Regímenes de crecimiento según la sobresaturación $\sigma$.}\\[0.3em]
+      \fig{Fig.~4. Regímenes de crecimiento según la sobresaturación $\sigma$.}\\[0.4em]
       \footnotesize
-      \renewcommand{\arraystretch}{1.15}\setlength{\tabcolsep}{4pt}
+      \renewcommand{\arraystretch}{1.1}\setlength{\tabcolsep}{4pt}
       \begin{tabular}{@{}lll@{}}
         \toprule
         $\sigma$ & Régimen & Mecanismo \\
@@ -494,29 +492,24 @@
         \bottomrule
       \end{tabular}
     \end{column}
-    \begin{column}{0.52\textwidth}
-      \setlength{\abovedisplayskip}{2pt}\setlength{\belowdisplayskip}{2pt}
-      {\color{azul}Fuerza impulsora}
+    \begin{column}{0.54\textwidth}
+      {\color{azul}\bfseries Fuerza impulsora}
       \begin{equation}
         \Delta\mu = \kB T\ln\frac{C}{C_{eq}} = \kB T\ln(\sigma+1) \tag{8}
       \end{equation}
-      {\footnotesize $C$: concentración de UC;\ $C_{eq}$: saturación;\ $\sigma = C/C_{eq}-1$}\\[0.1em]
-      {\color{azul}Creación de una nueva interfaz plana}
+      {\footnotesize\color{gris} $C$: concentración de UC;\ $C_{eq}$: saturación;\ $\sigma = C/C_{eq}-1$}\\[0.8em]
+      {\color{azul}\bfseries Nueva interfaz plana}
       \begin{equation}
-        \Delta G = -N\Delta\mu + \gamma_{edge}A \tag{9}
+        \Delta G = \underbrace{-N\Delta\mu}_{\text{\scriptsize favorece el cristal}}
+                 + \underbrace{\gamma_{edge}A}_{\text{\scriptsize barrera superficial}} \tag{9}
       \end{equation}
-      {\footnotesize $-N\Delta\mu$: favorece el cristal \quad $\gamma_{edge}A$: barrera superficial}\\[0.1em]
-      \begin{block}{}
-        \centering\footnotesize
-        $\sigma\uparrow\ \Rightarrow\ \Delta\mu\uparrow$:\ espiral $\to$ escalón (nucleación 2D) $\to$ rugoso
-      \end{block}
     \end{column}
   \end{columns}
 \end{frame}
 
 % ---------------------------------------------------------------- 9: kMC y BKL
 \begin{frame}{Monte Carlo cinético (kMC) y algoritmo BKL}
-  \framesubtitle{\textbf{kMC:} evolución estocástica por eventos discretos con probabilidades físicas y \textbf{tiempo real}.}
+  \framesubtitle{\textbf{kMC:} eventos discretos estocásticos, con probabilidades físicas y \textbf{tiempo real}.}
   \begin{columns}[c,onlytextwidth]
     \begin{column}{0.47\textwidth}
       \centering
@@ -556,8 +549,8 @@
           \Delta t = -\frac{\ln r_2}{k_{tot}}, \qquad r_2\in(0,1] \tag{14}
         \end{equation}
       \end{block}
-      {\footnotesize Ejecutar evento, actualizar tasas y avanzar tiempo\\
-      Intervalos de Poisson: $\Delta t \propto 1/k_{tot}$}
+      {\footnotesize Ciclo: evento (13) $\to$ ejecutar $\to$ tasas $\to$ $t+\Delta t$\\
+      {\color{gris}$\Delta t$: intervalos de Poisson, $\propto 1/k_{tot}$}}
     \end{column}
   \end{columns}
 \end{frame}
@@ -580,14 +573,16 @@
         $n$   & 0 & 1 & 2 & 3 & 4 \\
         \bottomrule
       \end{tabular}\\[0.3em]
-      {\scriptsize\color{gris}SOS: sin vacantes internas ni voladizos}
+      {\footnotesize $n$ vecinos $\Rightarrow$ la adsorción \textbf{distingue}\\ el tipo de sitio}
     \end{column}
     \begin{column}{0.54\textwidth}
       \small
       \setlength{\abovedisplayskip}{2pt}\setlength{\belowdisplayskip}{2pt}
-      \begin{itemize}\setlength{\itemsep}{0.2em}
+      \begin{itemize}\setlength{\itemsep}{0.4em}
         \item Red $80\times80$, fronteras periódicas, vecindad de von Neumann
         \item \textit{Solid-on-solid}: cada sitio guarda una \textbf{altura}
+              {\footnotesize\color{gris}(sin vacantes internas ni voladizos)}
+        \item Eventos: adsorción, desorción, migración, \textbf{incorporación}
       \end{itemize}
       \begin{block}{Energía libre por UC adsorbida}
         \vspace{-0.5em}
@@ -595,8 +590,6 @@
           \Delta G_{UC} = -\Delta\mu + \gamma_{edge}\,n\,A_f \tag{15}
         \end{equation}
       \end{block}
-      {\footnotesize $n$ vecinos $\Rightarrow$ la adsorción \textbf{distingue} el tipo de sitio}\\[0.1em]
-      {\footnotesize Eventos: \textbf{adsorción} · \textbf{desorción} · \textbf{migración} · \textbf{incorporación}}
     \end{column}
   \end{columns}
 \end{frame}
@@ -614,9 +607,9 @@
         k_{m_n} &= K_0^{+}\exp\!\left(\frac{\phi}{\kB T} + \frac{E_{pb_x}+E_{pb_y}}{2\kB T} - n_x\frac{E_{pb_x}}{\kB T} - n_y\frac{E_{pb_y}}{\kB T}\right) \tag{18}\\
         k_{i_n} &= K_{inc}^{+}\exp\!\left(n_x\frac{E_{pb_x}}{\kB T} + n_y\frac{E_{pb_y}}{\kB T}\right) \tag{19}
       \end{align}
-      {\footnotesize $\phi$: enlace por UC en la red llena;\ $E_{pb}$: energía por enlace;\ $n_x,n_y\in\{0,1,2\}$\\
-       $\Delta\mu$ baja $\Rightarrow$ dominan sitios con más vecinos;\ $\Delta\mu$ alta $\Rightarrow$ adsorción rápida\\
-       Tasa total $W_{tot}=\sum_{j\in\{a,d,m,i\}}\sum_n M_n\,k_{j_n}$;\ evento $j$ con $P_j = W_j/W_{tot}$}
+      \vspace{0.3em}
+      {\scriptsize\color{gris}$\phi$: enlace por UC en la red llena;\ $E_{pb}$: energía por enlace;\ $n_x,n_y\in\{0,1,2\}$}\\[0.3em]
+      {\footnotesize $W_{tot}=\sum_{j\in\{a,d,m,i\}}\sum_n M_n\,k_{j_n}$ \quad $\Rightarrow$ \quad evento $j$ con $P_j = W_j/W_{tot}$}
     \end{column}
     \begin{column}{0.25\textwidth}
       \centering
@@ -626,6 +619,12 @@
       \fig{Fig.~7. Incorporación: nueva.}
     \end{column}
   \end{columns}
+  \begin{block}{}
+    \centering\footnotesize
+    $\Delta\mu$ baja $\Rightarrow$ dominan sitios con más vecinos
+    \qquad$\cdot$\qquad
+    $\Delta\mu$ alta $\Rightarrow$ adsorción rápida
+  \end{block}
 \end{frame}
 
 % ---------------------------------------------------------------- 12: Cinética de conversión
@@ -674,9 +673,8 @@
     \end{column}
     \begin{column}{0.35\textwidth}
       \centering
-      {\color{azul}\bfseries\scriptsize Parámetros}\\[0.1em]
       \scriptsize
-      \renewcommand{\arraystretch}{0.92}\setlength{\tabcolsep}{3pt}
+      \renewcommand{\arraystretch}{1.0}\setlength{\tabcolsep}{3pt}
       \begin{tabular}{@{}lr@{}}
         \toprule
         \multicolumn{2}{@{}l}{\textbf{MACE}} \\
@@ -689,12 +687,12 @@
         $K_0^{+}$     & 11.67 \\
         $K_{inc}^{+}$ & 0.507 \\
         \bottomrule
-      \end{tabular}\\[0.2em]
+      \end{tabular}\\[0.5em]
       \begin{block}{\centering Lectura}
         \centering\footnotesize
-        $\sigma\uparrow$ $\Rightarrow$ más núcleos, islas menos definidas $\Rightarrow$ \textbf{mayor rugosidad}
+        $\sigma\uparrow$ $\Rightarrow$ más núcleos, islas menos definidas $\Rightarrow$ \textbf{mayor rugosidad}\\[0.2em]
+        {\scriptsize\color{gris}(igual en el modelo isotrópico)}
       \end{block}
-      {\scriptsize\color{gris}Misma tendencia en el modelo isotrópico.}
     \end{column}
   \end{columns}
 \end{frame}
@@ -706,7 +704,7 @@
     \begin{column}{0.50\textwidth}
       \centering
       \includegraphics[width=\linewidth]{morfo_compara.png}\\
-      \fig{Fig.~10. AFM en modo de fase a distintas sobresaturaciones (Olafson \emph{et al.}, 2017).}
+      \fig{Fig.~10. AFM (modo de fase) a distintas $\sigma$.}
     \end{column}
     \begin{column}{0.48\textwidth}
       \centering
@@ -717,13 +715,14 @@
         \snap{0.155\textheight}{aniso_e_3.png} \\
         {\scriptsize $\sigma=0.38$} & {\scriptsize $\sigma=1.5$} & {\scriptsize $\sigma=2.7$}
       \end{tabular}\\
-      \fig{Fig.~11. kMC 3D anisotrópico, $t=240$ min.}\\[0.4em]
+      \fig{Fig.~11. kMC 3D anisotrópico, $t=240$ min.}\\[0.6em]
       \begin{block}{\centering Misma fuerza impulsora}
         \centering\small
         $\Delta\mu/\kB T = \ln(1+\sigma) \approx 0.32,\ 0.92,\ 1.31$\\
         {\footnotesize $\leftrightarrow$ paneles AFM (c), (d), (e)}
       \end{block}
-      {\footnotesize Acuerdo \textbf{cualitativo}: $\sigma\uparrow$ $\Rightarrow$ mayor densidad de núcleos}
+      \vspace{0.2em}
+      {\footnotesize Acuerdo \textbf{cualitativo}: $\sigma\uparrow\Rightarrow$ más núcleos}
     \end{column}
   \end{columns}
 \end{frame}
